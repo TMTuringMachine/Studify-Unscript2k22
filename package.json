@@ -1,0 +1,20 @@
+{
+  "name": "unscript2k22_turingmachine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AryanShinde/Unscript2k22_TuringMachine.git"
+  },
+  "keywords": [],
+  "author": "Saharsh Samir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AryanShinde/Unscript2k22_TuringMachine/issues"
+  },
+  "homepage": "https://github.com/AryanShinde/Unscript2k22_TuringMachine#readme"
+}
