@@ -67,7 +67,7 @@ const jwtVerify = async (req, res) => {
 };
 
 const uploadData = (req,res)=>{
-  
+    
 }
 
 module.exports = {
