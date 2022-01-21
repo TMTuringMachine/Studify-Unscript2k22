@@ -1,6 +1,6 @@
 const User = require("../models/UserSchema");
 const bcrypt = require("bcrypt");
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   var { name, email, phone, password, cpassword } = req.body;
@@ -46,9 +46,7 @@ const login = async (req, res) => {
             expiresIn: "15m",
           }
         );
-        return res
-          .status(200)
-          .send({token,message:"Login Successfull!"});
+        return res.status(200).send({ token, message: "Login Successfull!" });
       }
     } else {
       res.status(400).send("User does not exist");
@@ -58,7 +56,23 @@ const login = async (req, res) => {
   }
 };
 
+const jwtVerify = async (req, res) => {
+  const token = req.headers.token;
+  const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+  if (decodeToken) {
+    const user = await User.findById(decodeToken._id);
+    return res.send({ user });
+  }
+  res.send(null);
+};
+
+const uploadData = (req,res)=>{
+  
+}
+
 module.exports = {
   signup,
   login,
+  jwtVerify,
+  uploadData
 };
