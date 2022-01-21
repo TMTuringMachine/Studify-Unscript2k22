@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "description": "UnScript Rookie’s Hackathon 2k22",
   "main": "index.js",
   "scripts": {

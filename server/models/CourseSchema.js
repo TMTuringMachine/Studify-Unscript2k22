@@ -40,18 +40,21 @@ const courseSchema = new mongoose.Schema({
   },
   doubts: [
     {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: "USER",
+        required: true
+      },
       text: {
         type: String,
         required: true,
-      },
-      image: {
-        type: String,
       },
       date: {
         type: Date,
         required: true,
         default: Date.now(),
       },
+      required: false
     },
   ],
 });
