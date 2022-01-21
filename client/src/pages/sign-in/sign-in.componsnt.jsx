@@ -1,12 +1,29 @@
 import { Flex, Center, Spacer } from "@chakra-ui/layout";
-import { Box } from "@mui/system";
-import React from "react";
+import { Box } from "@chakra-ui/layout";
+import React, { useState } from "react";
 import Signimg from "../../assets/images/Signimg.png";
 import { Input } from "@chakra-ui/input";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "@chakra-ui/react";
+
+import { SignupHandler } from "../../hooks/useAuth";
 
 const SignIn = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    phone: null,
+    password: "",
+    cpassword: "",
+  });
+  const onChangeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    SignupHandler(data);
+  };
   return (
     <Flex>
       <ImageStyled className="left">
@@ -17,43 +34,49 @@ const SignIn = () => {
         justifyContent="center"
         alignItems="center"
         direction="column"
-        width="50%"
+        // backgroundColor="red"
+        flexBasis={{ base: "100%", md: "50%" }}
       >
         <Box
-          fontSize={{ base: "2.8rem", md: "2.8rem", sm: "1rem" }}
+          fontSize={{ base: "1.8rem", md: "2.8rem", sm: "1.8rem" }}
           fontWeight="bold"
           textAlign="center"
           className="head"
           p="1rem"
+          pt={{ base: "4rem", md: "0" }}
         >
           Create an account
         </Box>
-        <form>
-          <label htmlFor="fname">First Name</label>
+        <form onSubmit={(e) => onSubmitHandler(e)}>
+          <label htmlFor="name">Name</label>
           <br />
           <Input
             backgroundColor="#e6e6e6"
-            id="fname"
-            name="firstname"
+            id="name"
+            name="name"
             type="text"
             required
             mb="1rem"
             p="0.4rem"
             w="20rem"
             borderRadius="5px"
+            onChange={(e) => onChangeHandler(e)}
           />
           <br />
-          <label htmlFor="lname">Last Name</label>
+          <label htmlFor="phone">Phone number</label>
           <br />
           <Input
             mb="1rem"
             p="0.4rem"
             backgroundColor="#e6e6e6"
-            id="lname"
+            id="phone"
             type="text"
             w="20rem"
+            name="phone"
             borderRadius="5px"
             required
+            onChange={(e) => onChangeHandler(e)}
+            type="number"
           />
           <br />
           <label htmlFor="email">Email</label>
@@ -67,6 +90,9 @@ const SignIn = () => {
             w="20rem"
             borderRadius="5px"
             required
+            name="email"
+            onChange={(e) => onChangeHandler(e)}
+            type="email"
           />
           <br />
           <label htmlFor="pass">Password</label>
@@ -80,6 +106,9 @@ const SignIn = () => {
             w="20rem"
             borderRadius="5px"
             required
+            name="password"
+            onChange={(e) => onChangeHandler(e)}
+            type="password"
           />
           <br />
           <label htmlFor="cpass">Confirm Password</label>
@@ -92,12 +121,26 @@ const SignIn = () => {
             type="text"
             w="20rem"
             borderRadius="5px"
+            name="cpassword"
             required
+            onChange={(e) => onChangeHandler(e)}
+            type="password"
           />
           <br />
+          <Button
+            onSubmit={(e) => onSubmitHandler(e)}
+            width="100%"
+            mt="1rem"
+            backgroundColor="#6c63ff"
+            color="white"
+            type="submit"
+            _hover={{ bg: "#a6a0ff" }}
+          >
+            Submit
+          </Button>
         </form>
         <Box p="2rem 0rem" className="already">
-          Already have an account ? <Link to="/">Login</Link>
+          Already have an account ? <Link to="/login">Login</Link>
         </Box>
       </Flex>
     </Flex>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var Schema = mongoose.Schema
+var Schema = mongoose.Schema;
 const courseSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -43,7 +43,7 @@ const courseSchema = new mongoose.Schema({
       userId: {
         type: Schema.Types.ObjectId,
         ref: "USER",
-        required: true
+        required: true,
       },
       text: {
         type: String,
@@ -54,7 +54,7 @@ const courseSchema = new mongoose.Schema({
         required: true,
         default: Date.now(),
       },
-      required: false
+      required: false,
     },
   ],
 });
