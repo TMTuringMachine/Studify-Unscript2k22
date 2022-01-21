@@ -1,10 +1,17 @@
-import './App.css';
+import "./App.css";
+
+import Router from "./routes/routes.index";
+import ThemeConfig from "./theme/theme";
+import { useTheme } from "@mui/material";
 
 function App() {
+  const theme = useTheme();
   return (
-    <>
-    Turing Machine
-    </>
+    <ThemeConfig>
+      <div className="App" theme={theme}>
+        <Router />
+      </div>
+    </ThemeConfig>
   );
 }
 
