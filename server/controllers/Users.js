@@ -66,13 +66,29 @@ const jwtVerify = async (req, res) => {
   res.send(null);
 };
 
-const uploadData = (req,res)=>{
-    
-}
+const uploadData = async (req, res) => {
+  const { education, DateOfBirth, age, gender, address, image } = req.body;
+  console.log(req.body);
+  const data = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { education, DateOfBirth, age, gender, address, image, hasProfile: true }
+  );
+  res.status(200).send("User Data Updated");
+};
+
+const uploadTeacherData = async (req, res) => {
+  const { domain, rating, idProof } = req.body;
+  const data = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { domain, rating, idProof}
+  );
+  res.status(200).send("Teacher Data Uploaded, wait for admin approval");
+};
 
 module.exports = {
   signup,
   login,
   jwtVerify,
-  uploadData
+  uploadData,
+  uploadTeacherData,
 };
