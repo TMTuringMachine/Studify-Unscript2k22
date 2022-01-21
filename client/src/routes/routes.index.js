@@ -43,6 +43,10 @@ export default function Router() {
           path: "/home",
           element: <Home />,
         },
+        {
+          path:"/test",
+          element:<Test/>
+        }
       ],
     },
   ]);
@@ -65,3 +69,7 @@ const SignIn = Loadable(
 const Home = Loadable(
   lazy(() => import("../pages/Homepage/homepage.component"))
 );
+
+const Test = Loadable(
+  lazy(()=> import("../pages/test"))
+)
