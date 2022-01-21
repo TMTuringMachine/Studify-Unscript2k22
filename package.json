@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/AryanShinde/Unscript2k22_TuringMachine/issues"
   },
-  "homepage": "https://github.com/AryanShinde/Unscript2k22_TuringMachine#readme"
+  "homepage": "https://github.com/AryanShinde/Unscript2k22_TuringMachine#readme",
+  "dependencies": {
+    "@chakra-ui/react": "^1.7.4",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "framer-motion": "^5"
+  }
 }
