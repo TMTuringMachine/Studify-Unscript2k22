@@ -1,14 +1,14 @@
-import { createCourse, deleteCourse, updateCourse, getCourse } from "../controllers/Course";
-import { isTeacher } from "../middlewares/IsTeacher";
-import { Router as _Router } from "express";
+const { isAuthenticated } = require("../middlewares/Auth");
+const { isTeacher} = require("../middlewares/IsTeacher")
+const { createCourse, deleteCourse, updateCourse, getCourse, getAllCourses } = require("../controllers/Course");
+const express = require("express");
 
+const Router = express.Router();
 
-
-const Router = _Router();
-
-Router.get("/get", getCourse);
-Router.post("/create", createCourse);
-Router.delete("/delete", deleteCourse);
-Router.put("/update", updateCourse);
+Router.get("/get/one", getCourse);
+Router.get("/get/all", getAllCourses)
+Router.post("/create",isAuthenticated, isTeacher, createCourse);
+Router.delete("/delete",isAuthenticated, isTeacher, deleteCourse);
+Router.put("/update",isAuthenticated, isTeacher, updateCourse);
 
 export default Router;
