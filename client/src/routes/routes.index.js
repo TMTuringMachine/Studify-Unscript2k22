@@ -38,7 +38,12 @@ export default function Router() {
     {
       path: "/",
       element: <MainLayout />,
-      children: [],
+      children: [
+        {
+          path: "/home",
+          element: <Home />,
+        },
+      ],
     },
   ]);
 }
@@ -55,4 +60,8 @@ const MainLayout = Loadable(
 //pages
 const SignIn = Loadable(
   lazy(() => import("../pages/sign-in/sign-in.componsnt"))
+);
+
+const Home = Loadable(
+  lazy(() => import("../pages/Homepage/homepage.component"))
 );

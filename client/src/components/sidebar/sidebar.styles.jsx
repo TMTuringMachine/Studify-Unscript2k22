@@ -42,7 +42,7 @@ export const MainSidebar = styled("div")(({ theme }) => ({
     top: "10px",
     left: "10px",
     fontSize: "2em",
-    color: theme.palette.colors.color3,
+    color: "#6C63FF",
     cursor: "pointer",
   },
 
@@ -76,26 +76,23 @@ export const MainSidebar = styled("div")(({ theme }) => ({
 export const SidebarBtnContainer = styled(Button)(({ theme, selected }) => ({
   width: "70%",
   height: "fit-content",
-  ...theme.palette.textGradients.txtGrad1,
+  //   ...theme.palette.textGradients.txtGrad1,
+  color: selected ? "white" : "black",
   borderRadius: 5,
   margin: "10px 0",
-  fontSize: "1em",
+  fontSize: "1.1em",
   padding: "3px",
-  fontWeight: selected?800:600,
+  fontWeight: selected ? 800 : 500,
+  backgroundColor: selected ? "#6C63FF" : "white",
   letterSpacing: 2,
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "start",
-  "& svg": {
-    margin: "0 10px 0 30px",
-    fontSize: "1.2em",
-    color:selected?'white !important':theme.palette.colors.secondary,
-    transform:selected?'scale(1.2)':'none',
+  justifyContent: "center",
+  "&:hover": {
+    backgroundColor: selected ? "#6C63FF" : "white",
+    color: selected ? "white" : "black",
   },
-  backgroundClip:selected?'none':'text',
-  textFillColor:selected?'white':'transparent',
-
 }));
 
 export const LogoutBtn = styled(Button)(({ theme }) => ({
@@ -106,9 +103,9 @@ export const LogoutBtn = styled(Button)(({ theme }) => ({
   padding: "10px",
   fontWeight: 600,
   letterSpacing: 2,
-  color: theme.palette.colors.secondary,
+  color: "black",
 
-  ...theme.palette.textGradients.txtGrad1,
+//   ...theme.palette.textGradients.txtGrad1,
   "& svg": {
     marginRight: 10,
   },

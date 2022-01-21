@@ -18,13 +18,13 @@ const MainLayout = () => {
 
 
 
-  React.useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/sign-in");
-    } else {
-      navigate(pathname);
-    }
-  }, [isLoggedIn]);
+//   React.useEffect(() => {
+//     if (!isLoggedIn) {
+//       navigate("/sign-in");
+//     } else {
+//       navigate(pathname);
+//     }
+//   }, [isLoggedIn]);
 
   return (
     <Page>

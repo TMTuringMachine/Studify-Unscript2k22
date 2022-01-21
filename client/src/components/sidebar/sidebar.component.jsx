@@ -37,7 +37,6 @@ const Sidebar = ({ toggleScreenState }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const theme = useTheme();
 
-
   const [user, setUser] = useState({
     profilePic: "https://www.nawpic.com/media/2020/levi-ackerman-nawpic-38.jpg",
     username: "Levi_2910",
@@ -48,9 +47,7 @@ const Sidebar = ({ toggleScreenState }) => {
     toggleScreenState();
   };
 
-  const handleLogout = () => {
-    
-  };
+  const handleLogout = () => {};
 
   return (
     <SidebarContainer theme={theme}>
@@ -62,7 +59,7 @@ const Sidebar = ({ toggleScreenState }) => {
             <Icon
               icon="ci:menu-alt-03"
               fontSize={"2em"}
-              color={theme.palette.colors.secondary}
+              color={"#6C63FF"}
             />
           </IconButton>
           <SidebarDrawer
@@ -77,43 +74,20 @@ const Sidebar = ({ toggleScreenState }) => {
                 onClick={toggleSidebar}
               />
               <div className="user-info">
-                <Avatar src={user.profilePic} />
-                <div className="username">{user.username}</div>
-                <Rating name="read-only" value={5} readOnly size="large" />
+                <Avatar  />
+                <div className="username">FirstName LastName</div>
               </div>
               <div className="sidebar-btns">
-                <SidebarBtn url="/feed">
-                  <Icon
-                    icon="fluent:broad-activity-feed-16-regular"
-                    color="#7209B7"
-                  />{" "}
-                  FEED
-                </SidebarBtn>
-                <SidebarBtn url="/explore">
-                  <Icon icon="ic:outline-explore" color="#7209B7" />
-                  EXPLORE
-                </SidebarBtn>
-                <SidebarBtn url="/activity">
-                  <Icon icon="bi:activity" color="#7209B7" />
-                  ACTIVITY
-                </SidebarBtn>
-                <SidebarBtn url="/messages">
-                  <Icon icon="jam:messages" color="#7209B7" />
-                  MESSAGES
-                </SidebarBtn>
-                <SidebarBtn url={`/profile/${user._id}`}>
-                  <Icon icon="iconoir:profile-circled" color="#7209B7" />
-                  PROFILE
-                </SidebarBtn>
-                <SidebarBtn url="/settings">
-                  <Icon icon="ci:settings" color="#7209B7" />
-                  SETTINGS
-                </SidebarBtn>
+                <SidebarBtn url="/home">ALL COURSES</SidebarBtn>
+                <SidebarBtn url="/">MY COURSES</SidebarBtn>
+                <SidebarBtn url="/">MY WISHLIST</SidebarBtn>
+                <SidebarBtn url="/">MY TEACHINGS</SidebarBtn>
+                
               </div>
 
               <LogoutBtn onClick={handleLogout}>
                 {" "}
-                <Icon icon="ri:logout-box-line" color="#7209B7" />
+                <Icon icon="ri:logout-box-line" color="#000" />
                 LOGOUT
               </LogoutBtn>
             </MainSidebar>
