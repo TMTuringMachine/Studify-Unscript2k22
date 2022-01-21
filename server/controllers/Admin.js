@@ -1,0 +1,67 @@
+const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
+const Admin = require("../models/AdminSchema");
+const User = require("../models/UserSchema");
+
+const signup = async (req, res) => {
+  var { name, email, phone, password, cpassword } = req.body;
+  console.log(req.body);
+  if (!name || !email || !phone || !password || !cpassword)
+    res.status(422).send("Enter all fields");
+  try {
+    const adminExists = await Admin.findOne({ email: email });
+    const userExists = await User.findOne({ email: email });
+    if (adminExists) {
+      res.status(422).send("Admin with this email already exists");
+    } else if (userExists) {
+      res.status(422).send("User with this email already exists. Please Login as a User");
+    } else if (password !== cpassword) {
+      res.status(422).send("Passwords do not match");
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      password = hashedPassword;
+      const admin = new Admin({ name, email, phone, password });
+      const saveAdmin = await admin.save();
+      if (saveAdmin) res.status(200).send("Admin created successfully");
+    }
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      return res.status(400).send("Email or password cannot be blank");
+    }
+    const AdminLogin = await Admin.findOne({ email: email });
+    if (AdminLogin) {
+      const isValid = await bcrypt.compare(password, AdminLogin.password);
+      if (!isValid) {
+        res.status(400).send("Incorrect Credentials");
+      } else {
+        const token = jwt.sign(
+          {
+            _id: AdminLogin._id,
+            name: AdminLogin.name,
+          },
+          process.env.JWT_PRIVATE_KEY,
+          {
+            expiresIn: "15m",
+          }
+        );
+        return res.status(200).send({ token, message: "Login Successfull!" });
+      }
+    } else {
+      res.status(400).send("User does not exist");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+};
