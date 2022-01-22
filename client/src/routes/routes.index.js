@@ -78,6 +78,10 @@ export default function Router() {
           path: "/wishlist",
           element: <MyWishlist />,
         },
+        {
+          path:"/course/:id/learn",
+          element:<CourseVideos/>
+        }
       ],
     },
   ]);
@@ -105,6 +109,10 @@ const MyWishlist = Loadable(
 const Course  = Loadable(
   lazy(()=> import("../pages/Course/course.component"))
 )
+const CourseVideos = Loadable(
+  lazy(()=> import("../pages/CourseVideos/courseVideos.component"))
+)
+
 
 const Test = Loadable(lazy(() => import("../pages/test")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
@@ -121,3 +129,4 @@ const DashBoard = Loadable(
 const CreateProfile = Loadable(
   lazy(() => import("../components/Dashboard/createProfile.component"))
 );
+
