@@ -13,6 +13,7 @@ const Test = () => {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
+          console.log(result.info);
           console.log(result.info.url);
         }
       }
