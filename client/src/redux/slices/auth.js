@@ -25,7 +25,8 @@ const slice = createSlice({
       state.user = null;
     },
     profileUpdate(state, action) {
-      state = { ...state, user: action.payload, isLoggedIn: true };
+      state = { ...state, ...action.payload };
+
       return state;
     },
   },

@@ -81,7 +81,10 @@ export default function Router() {
         {
           path:"/course/:id/learn",
           element:<CourseVideos/>
-        }
+        },{
+          path: "/createCourse",
+          element: <CreateCourse />,
+        },
       ],
     },
   ]);
@@ -130,3 +133,6 @@ const CreateProfile = Loadable(
   lazy(() => import("../components/Dashboard/createProfile.component"))
 );
 
+const CreateCourse = Loadable(
+  lazy(() => import("../components/Teachings/createCourse.component"))
+);

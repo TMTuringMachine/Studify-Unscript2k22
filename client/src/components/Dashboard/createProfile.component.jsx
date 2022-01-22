@@ -38,7 +38,7 @@ const CreateProfile = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log(data);
-    CreateProfileHook(data,dispatch, navigate);
+    CreateProfileHook(data, dispatch, navigate);
   };
 
   return (
