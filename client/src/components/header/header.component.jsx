@@ -12,17 +12,17 @@ import {
   DrawerCloseButton,
   Text,
 } from "@chakra-ui/react";
-import { Input } from '@chakra-ui/react'
+import { Input } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { HeaderContainer } from "./header.styles";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SidebarBtn = ({ url, children }) => {
   const { pathname } = useLocation();
   const [selected, setSelectd] = useState(false);
-
   useEffect(() => {
     setSelectd(pathname === url);
   }, [pathname, url]);
@@ -49,12 +49,20 @@ const SidebarBtn = ({ url, children }) => {
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = React.useState("left");
+  const user = useSelector((store) => store.auth.user);
+
   return (
     <HeaderContainer>
-      <IconButton onClick={onOpen} >
+      <IconButton onClick={onOpen}>
         <Icon icon="ci:menu-alt-03" fontSize={"2em"} color={"#fff"} />
       </IconButton>
-        <Input display="inline" width="70%" variant='filled' placeholder='Search Courses' _focus=""/>
+      <Input
+        display="inline"
+        width="70%"
+        variant="filled"
+        placeholder="Search Courses"
+        _focus=""
+      />
       <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent
@@ -72,19 +80,30 @@ const Header = () => {
           >
             <Avatar
               name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
+              src={
+                user.image
+                  ? user.image
+                  : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fprincessamo321%2Fdefault-profile-pictures%2F&psig=AOvVaw2IMy6YjfVAFfQtr8uDzfGi&ust=1642947200223000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNDL87jFxfUCFQAAAAAdAAAAABAD"
+              }
               height="170px"
               width="170px"
               margin="30px auto"
             />
-            <Text>FirstName LastName</Text>
+            <Text>{user.name ? user.name : "no name"}</Text>
           </DrawerHeader>
           <DrawerBody display="flex" flexDirection="column" alignItems="center">
             <SidebarBtn url="/home">ALL COURSES</SidebarBtn>
             <SidebarBtn url="/my-courses">MY COURSES</SidebarBtn>
             <SidebarBtn url="/wishlist">MY WISHLIST</SidebarBtn>
             <SidebarBtn>MY TEACHINGS</SidebarBtn>
-            <Button position="absolute" bottom="20px" leftIcon={<Icon icon="ri:logout-box-line" color="#000"/>} > LOGOUT</Button>
+            <Button
+              position="absolute"
+              bottom="20px"
+              leftIcon={<Icon icon="ri:logout-box-line" color="#000" />}
+            >
+              {" "}
+              LOGOUT
+            </Button>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
@@ -93,4 +112,3 @@ const Header = () => {
 };
 
 export default Header;
-

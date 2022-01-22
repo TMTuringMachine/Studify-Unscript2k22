@@ -9,8 +9,8 @@ export const CreateProfileHook = async (data, dispatch, navigate) => {
       },
     };
     const res = await axios.post("/user/uploadData", body, config);
-    dispatch(profileUpdate(res));
-    console.log(res)
+    dispatch(profileUpdate(res.data));
+    console.log(res.data);
     navigate("/dashboard");
   } catch (e) {}
 };

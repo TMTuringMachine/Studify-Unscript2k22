@@ -28,10 +28,6 @@ const Loadable = (Component) => (props) => {
 export default function Router() {
   return useRoutes([
     {
-      path: "/sidebar",
-      element: <Sidebar />,
-    },
-    {
       path: "/sign-in",
       element: <SignIn />,
     },
@@ -79,10 +75,6 @@ export default function Router() {
     },
   ]);
 }
-
-const Sidebar = Loadable(
-  lazy(() => import("../components/sidebar/sidebar.component"))
-);
 
 //layouts
 const MainLayout = Loadable(
