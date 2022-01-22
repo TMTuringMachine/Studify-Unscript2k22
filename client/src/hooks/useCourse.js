@@ -27,3 +27,12 @@ export const postCourse = async (dispatch, data, navigate) => {
   });
   console.log(res);
 };
+export const deleteCourse = async (courseId, navigate) => {
+  try {
+    const res = await axios.get(`/course/delete/${courseId}`);
+    console.log(res);
+    navigate("/home");
+  } catch (e) {
+    console.log(e);
+  }
+};

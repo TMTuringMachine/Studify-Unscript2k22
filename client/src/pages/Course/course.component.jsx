@@ -1,13 +1,14 @@
 import React from "react";
 import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useRazorpay from "react-razorpay";
 import { useSelector, useDispatch } from "react-redux";
 import API from "../../utils/axios";
 import { initializeUser } from "../../hooks/useAuth";
 
 import { CourseContainer, CourseImage } from "./course.styles";
+import { deleteCourse } from "../../hooks/useCourse";
 
 let course = {
   thumbnail:
@@ -82,6 +83,8 @@ const Course = () => {
     });
     rzp1.open();
   };
+  const currUser = useSelector((store) => store.auth.user);
+  const navigate = useNavigate();
   return (
     <CourseContainer
       padding={[
@@ -104,23 +107,36 @@ const Course = () => {
             flexDirection="column"
             justifyContent="space-between"
           >
-            <div>
-              <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
-                {course.title}
-              </Text>
-              <Text
-                margin={["0 0 10px 0", null]}
-                fontSize={["md", "lg", "lg", "xl", "xl"]}
-                color="#6d6d6d"
-              >
-                by {course.teacherName}
-              </Text>
-            </div>
-            <Rating value={5} readOnly size="large" />
-            <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
-              {" "}
-              &#8377; {course.price}
-            </Text>
+            <Flex justifyContent="space-between" alignItems="flex-start">
+              <Box>
+                <div>
+                  <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
+                    {course.title}
+                  </Text>
+                  <Text
+                    margin={["0 0 10px 0", null]}
+                    fontSize={["md", "lg", "lg", "xl", "xl"]}
+                    color="#6d6d6d"
+                  >
+                    by {course.teacherName}
+                  </Text>
+                </div>
+                <Rating value={5} readOnly size="large" />
+                <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
+                  {" "}
+                  &#8377; {course.price}
+                </Text>
+              </Box>
+              {course.teacherId === currUser._id && (
+                <Button
+                  onClick={() => deleteCourse(course._id, navigate)}
+                  colorScheme="red"
+                  variant="outline"
+                >
+                  Delete this Course
+                </Button>
+              )}
+            </Flex>
           </Box>
           <Flex width="95%" margin={["20px auto 0px auto", "0 auto"]}>
             <Button
