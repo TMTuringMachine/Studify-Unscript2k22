@@ -70,7 +70,7 @@ export const initializeUser = async (dispatch) => {
   if (token) {
     setToken(token);
     if (localStorage.getItem("userToken")) {
-      const res = await axios.get("/jwtVerify");
+      const res = await axios.get("/user/jwtVerify");
       dispatch(
         initialize({
           isLoggedIn: true,
