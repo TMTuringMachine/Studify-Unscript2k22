@@ -61,7 +61,13 @@ const login = async (req, res) => {
 };
 
 const jwtVerify = async (req, res) => {
-  const token = req.headers.token;
+  console.log(req.headers);
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    return res.send(null);
+  }
+
   const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   if (decodeToken) {
     const user = await User.findById(decodeToken._id);

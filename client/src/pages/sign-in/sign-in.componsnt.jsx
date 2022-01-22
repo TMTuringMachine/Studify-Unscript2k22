@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Button } from "@chakra-ui/react";
 
 import { SignupHandler } from "../../hooks/useAuth";
+import { useDispatch } from "react-redux";
 
 const SignIn = () => {
   const [data, setData] = useState({
@@ -17,12 +18,13 @@ const SignIn = () => {
     password: "",
     cpassword: "",
   });
+  const dispatch = useDispatch();
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    SignupHandler(data);
+    SignupHandler(data, dispatch);
   };
   return (
     <Flex>

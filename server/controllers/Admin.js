@@ -64,8 +64,23 @@ const login = async (req, res) => {
     console.log(error);
   }
 };
+const jwtVerify = async (req, res) => {
+  console.log(req.headers);
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    return res.send(null);
+  }
 
+  const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+  if (decodeToken) {
+    const user = await Admin.findById(decodeToken._id);
+    return res.send({ user });
+  }
+  res.send(null);
+};
 module.exports = {
   signup,
   login,
+  jwtVerify,
 };
