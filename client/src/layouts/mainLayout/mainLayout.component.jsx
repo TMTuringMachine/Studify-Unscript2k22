@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import Sidebar from "../../components/sidebar/sidebar.component";
+import Header from "../../components/header/header.component";
 import { useSelector } from "react-redux";
 import { Page, Content } from "./mainLayout.styles";
 
@@ -16,27 +17,27 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-
-
-//   React.useEffect(() => {
-//     if (!isLoggedIn) {
-//       navigate("/sign-in");
-//     } else {
-//       navigate(pathname);
-//     }
-//   }, [isLoggedIn]);
+  //   React.useEffect(() => {
+  //     if (!isLoggedIn) {
+  //       navigate("/sign-in");
+  //     } else {
+  //       navigate(pathname);
+  //     }
+  //   }, [isLoggedIn]);
 
   return (
     <Page>
       <Context.Provider value={{ isFullScreen }}>
-        <Sidebar
+        {/* <Sidebar
           toggleScreenState={() => {
             setIsFullScreen(!isFullScreen);
           }}
-        />
-        <Content fullScreen={isFullScreen}>
-          <Outlet context={[isFullScreen]} />
-        </Content>
+        /> */}
+
+        <Header />
+        {/* <Content fullScreen={isFullScreen}> */}
+        <Outlet />
+        {/* </Content> */}
       </Context.Provider>
     </Page>
   );
