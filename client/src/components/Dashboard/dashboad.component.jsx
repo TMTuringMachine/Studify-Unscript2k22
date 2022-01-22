@@ -1,13 +1,19 @@
 import { Box } from "@chakra-ui/layout";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import { useSelector } from "react-redux";
 import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { initializeUser } from "../../hooks/useAuth";
+import { useDispatch } from "react-redux";
 const DashBoard = () => {
-  const user = useSelector((store) => store.auth?.user);
+  let user = useSelector((store) => store.auth.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    initializeUser(dispatch);
+  }, [dispatch]);
   console.log(user);
   return (
     <Flex flexDirection="column" justifyContent="center" alignItems="center">

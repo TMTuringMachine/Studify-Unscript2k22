@@ -10,7 +10,12 @@ export const CreateProfileHook = async (data, dispatch, navigate) => {
     };
     const res = await axios.post("/user/uploadData", body, config);
     const user = res.data;
-    dispatch(profileUpdate(user));
+    dispatch(
+      profileUpdate({
+        user: user,
+        isLoggedIn: true,
+      })
+    );
     console.log(res.data);
     if (user) {
       navigate("/dashboard");
