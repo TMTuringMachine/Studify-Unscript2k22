@@ -27,6 +27,11 @@ export const SidebarDrawer = styled(Drawer)(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadows.shadow3,
   },
+  [theme.breakpoints.down('sm')]:{
+    "& .MuiPaper-root":{
+      width:"80vw",
+    }
+  }
 }));
 
 export const MainSidebar = styled("div")(({ theme }) => ({
