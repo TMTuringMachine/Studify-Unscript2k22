@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { Button } from "@chakra-ui/button";
 
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router";
 import { LoginHandler } from "../../hooks/useAuth";
 import AlertComponent from "../../components/Alert/Alert.component";
 const SignIn = () => {
@@ -17,6 +17,7 @@ const SignIn = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const onChangeHandler = (e) => {
@@ -28,10 +29,12 @@ const SignIn = () => {
       if (res.error) {
         setIsError(!isError);
         setErrorMessage(res.error);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      } else {
+        navigate("/");
       }
-      setTimeout(() => {
-        setIsError(false);
-      }, 3000);
     });
   };
   return (

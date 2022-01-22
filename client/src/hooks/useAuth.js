@@ -1,7 +1,13 @@
 import axios from "../utils/axios";
 import Alert from "../components/Alert/Alert.component";
-import { loginSuccess } from "../redux/slices/auth";
-export const SignupHandler = async (formData) => {
+import {
+  initialize,
+  loginSuccess,
+  logoutSuccess,
+  registerSuccess,
+} from "../redux/slices/auth";
+import setToken from "../utils/setToken";
+export const SignupHandler = async (formData, dispatch) => {
   try {
     const body = JSON.stringify(formData);
     const config = {
@@ -10,6 +16,7 @@ export const SignupHandler = async (formData) => {
       },
     };
     const res = await axios.post("/signup", body, config);
+    dispatch(registerSuccess());
     console.log(res);
   } catch (e) {
     console.log(e);
@@ -28,12 +35,17 @@ export const LoginHandler = async (formData, dispatch, isAdmin) => {
   } else {
     var res = await axios.post("/login", body, config);
   }
-  console.log(res);
+  let userToken = "";
+  let adminToken = "";
   if (res.data.ok) {
     if (isAdmin) {
+      adminToken = res.data.token;
       var user = res.data.AdminLogin;
+      localStorage.setItem("adminToken", JSON.stringify(adminToken));
     } else {
+      userToken = res.data.token;
       var user = res.data.userLogin;
+      localStorage.setItem("userToken", JSON.stringify(userToken));
     }
 
     console.log(user);
@@ -50,4 +62,52 @@ export const LoginHandler = async (formData, dispatch, isAdmin) => {
     };
     return obj;
   }
+};
+export const initializeUser = async (dispatch) => {
+  const token =
+    localStorage.getItem("userToken") || localStorage.getItem("adminToken");
+  if (token) {
+    setToken(token);
+    if (localStorage.getItem("userToken")) {
+      const res = await axios.get("/jwtVerify");
+      dispatch(
+        initialize({
+          isLoggedIn: true,
+          user: res.data.user,
+        })
+      );
+    } else if (localStorage.getItem("adminToken")) {
+      const res = await axios.get("/admin/jwtVerify");
+      console.log(res);
+      dispatch(
+        initialize({
+          isLoggedIn: true,
+          user: res.data.user,
+        })
+      );
+    } else {
+      dispatch(
+        initialize({
+          isLoggedIn: false,
+          user: null,
+        })
+      );
+    }
+  } else {
+    dispatch(
+      initialize({
+        isLoggedIn: false,
+        user: null,
+      })
+    );
+  }
+};
+
+export const logout = (dispatch) => {
+  if (localStorage.getItem("userToken")) {
+    localStorage.removeItem("userToken");
+  } else {
+    localStorage.removeItem("AdminToken");
+  }
+  dispatch(logoutSuccess());
 };

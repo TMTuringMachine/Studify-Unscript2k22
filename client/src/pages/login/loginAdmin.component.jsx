@@ -6,6 +6,8 @@ import { Input } from "@chakra-ui/input";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "@chakra-ui/button";
+
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { LoginHandler } from "../../hooks/useAuth";
 import AlertComponent from "../../components/Alert/Alert.component";
@@ -14,6 +16,8 @@ const AdminLogin = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,10 +30,12 @@ const AdminLogin = () => {
       if (res.error) {
         setIsError(!isError);
         setErrorMessage(res.error);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      } else {
+        navigate("/");
       }
-      setTimeout(() => {
-        setIsError(false);
-      }, 3000);
     });
   };
   return (
@@ -98,9 +104,6 @@ const AdminLogin = () => {
               Submit
             </Button>
           </form>
-          <Box p="2rem 0rem" className="already">
-            New to this? <Link to="/sign-in">Sign up</Link>
-          </Box>
         </Flex>
       </Flex>
     </>
