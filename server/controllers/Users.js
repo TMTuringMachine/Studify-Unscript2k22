@@ -35,13 +35,15 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      return res.status(400).send("Email or password cannot be blank");
+      return res
+        .status(200)
+        .send({ ok: false, message: "Email or password cannot be blank" });
     }
     const userLogin = await User.findOne({ email: email });
     if (userLogin) {
       const isValid = await bcrypt.compare(password, userLogin.password);
       if (!isValid) {
-        res.status(400).send("Incorrect Credentials");
+        res.status(200).json({ ok: false, message: "Incorrect Credentials" });
       } else {
         const token = jwt.sign(
           {
@@ -53,10 +55,12 @@ const login = async (req, res) => {
             expiresIn: "15m",
           }
         );
-        return res.status(200).send({ token, message: "Login Successfull!" });
+        return res
+          .status(200)
+          .json({ ok: true, message: "Login Successfull!", token, userLogin });
       }
     } else {
-      res.status(400).send("User does not exist");
+      res.status(200).send({ ok: false, message: "User does not exist" });
     }
   } catch (error) {
     console.log(error);
@@ -87,7 +91,7 @@ const uploadTeacherData = async (req, res) => {
   const { domain, rating, idProof } = req.body;
   const data = await User.findOneAndUpdate(
     { email: req.user.email },
-    { domain, rating, idProof}
+    { domain, rating, idProof }
   );
   res.status(200).send("Teacher Data Uploaded, wait for admin approval");
 };
