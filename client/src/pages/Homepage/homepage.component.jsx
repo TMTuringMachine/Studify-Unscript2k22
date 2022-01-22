@@ -3,7 +3,6 @@ import axios from "../../utils/axios";
 import { HomepageContainer, HomepageBanner } from "./homepage.styles";
 import HomepageImg from "../../assets/homepageBanner.png";
 import CourseOverview from "../../components/courseOverview/courseOverview.component";
-
 import { SimpleGrid, GridItem, Text } from "@chakra-ui/react";
 
 const Homepage = () => {

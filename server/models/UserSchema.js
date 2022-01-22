@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  isPending: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   education: {
     type: String,
   },
@@ -56,6 +61,18 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: 0,
       },
+      order_id: {
+        type:String,
+        required: true,
+      },
+      payment_id: {
+        type: String,
+        required: true,
+      },
+      payment_signature: {
+        type: String,
+        required: true
+      }
     },
   ],
   wishList: [

@@ -88,7 +88,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>Remove Course</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 
@@ -108,7 +108,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>View All Courses</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 
@@ -118,7 +118,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>View All Teachers</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 
@@ -128,7 +128,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>Pending Requests</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 
@@ -138,7 +138,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>Remove Teachers</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
           </SimpleGrid>

@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import { Input } from "@chakra-ui/input";
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
+import { useDispatch } from "react-redux";
+import { verifyTeacherHook } from "../../hooks/useCourse";
+import CreateCourseForm from "./createCourseForm";
 const CreateCourse = () => {
   const user = useSelector((store) => store.auth.user);
   const [data, setData] = useState({
@@ -24,16 +27,18 @@ const CreateCourse = () => {
     );
     widget.open();
   };
+  const dispatch = useDispatch();
   const onChangeHanler = (e) => {
     setData({ ...data, domain: e.target.value });
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log(data);
+    dispatch(verifyTeacherHook(dispatch, data));
   };
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column">
-      {!user.isTeacher ? (
+      {!user.isTeacher && !user.isPending ? (
         <Flex
           justifyContent="center"
           alignItems="center"
@@ -81,7 +86,16 @@ const CreateCourse = () => {
           </Button>
         </Flex>
       ) : (
-        <Box></Box>
+        <Box>
+          {!user.isTeacher && user.isPending ? (
+            <Box>We have recieved your request, Hang in tight</Box>
+          ) : (
+            <Box>
+              you can create courses now
+              <CreateCourseForm />
+            </Box>
+          )}
+        </Box>
       )}
     </Flex>
   );

@@ -6,16 +6,17 @@ import { CreateProfileHook } from "../../hooks/useProfile";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const CreateProfile = () => {
-  const [data, setData] = useState({
-    education: "",
-    DateOfBirth: "",
+const CreateCourseForm = () => {
+  const [videos, setVideos] = useState([]);
 
-    age: null,
-    gender: "",
-    address: "",
-    image: "",
+  const [data, setData] = useState({
+    title: "",
+    thumbnail: "",
+    description: "",
+    price: null,
+    content: [],
   });
+
   const dispatch = useDispatch();
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -29,7 +30,7 @@ const CreateProfile = () => {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          setData({ ...data, image: result.info.url });
+          setData({ ...data, thumbnail: result.info.url });
         }
       }
     );
@@ -37,14 +38,35 @@ const CreateProfile = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    console.log(videos);
+    setData({ ...data, content: videos });
     console.log(data);
-    CreateProfileHook(data, dispatch, navigate);
   };
-
+  const VideoHandler = () => {
+    let widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: `dx1ye2bro`,
+        uploadPreset: `kp2gvmnk`,
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          const video = {
+            title: result.info.original_filename,
+            videoURL: result.info.url,
+          };
+          setVideos([...videos, video]);
+          setData({ ...data, content: videos });
+          console.log(videos);
+          console.log(result.info);
+        }
+      }
+    );
+    widget.open();
+  };
   return (
     <Flex mt="1.5rem" justifyContent="center" alignItems="center">
       <form onSubmit={(e) => onSubmitHandler(e)}>
-        <label htmlFor="">Highest Education</label>
+        <label htmlFor="">Title</label>
         <br />
         <Input
           mb="1rem"
@@ -59,23 +81,8 @@ const CreateProfile = () => {
           type="text"
         />
         <br />
-        <label htmlFor="">Age</label>
-        <br />
-        <Input
-          mb="1rem"
-          p="0.4rem"
-          backgroundColor="#e6e6e6"
-          id="pass"
-          w="20rem"
-          borderRadius="5px"
-          name="age"
-          required
-          onChange={(e) => onChangeHandler(e)}
-          type="number"
-          min="6"
-        />
-        <br />
-        <label htmlFor="">Gender</label>
+
+        <label htmlFor="">Description</label>
         <br />
         <Input
           mb="1rem"
@@ -90,22 +97,8 @@ const CreateProfile = () => {
           type="text"
         />
         <br />
-        <label htmlFor="">Date of Birth</label>
-        <br />
-        <Input
-          mb="1rem"
-          p="0.4rem"
-          backgroundColor="#e6e6e6"
-          id="pass"
-          w="20rem"
-          name="DateOfBirth"
-          borderRadius="5px"
-          required
-          onChange={(e) => onChangeHandler(e)}
-          type="date"
-        />
-        <br />
-        <label htmlFor="">Address</label>
+
+        <label htmlFor="">price</label>
         <br />
         <Input
           mb="1rem"
@@ -117,12 +110,21 @@ const CreateProfile = () => {
           borderRadius="5px"
           required
           onChange={(e) => onChangeHandler(e)}
-          type="text"
+          type="number"
         />
         <br />
-        <label htmlFor="">Profile Picture</label>
+        <label htmlFor="">Thumbnail</label>
         <br />
         <Button onClick={imageHandler}>Upload Image</Button>
+
+        <Box>
+          <label htmlFor="">
+            Add multiple video and keep name of the video as the title
+          </label>
+          <br />
+          <Button onClick={VideoHandler}>Add section</Button>
+        </Box>
+
         <Button
           mt="1rem"
           backgroundColor="#6c63ff"
@@ -137,4 +139,4 @@ const CreateProfile = () => {
     </Flex>
   );
 };
-export default CreateProfile;
+export default CreateCourseForm;

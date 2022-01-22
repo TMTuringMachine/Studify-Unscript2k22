@@ -107,7 +107,7 @@ function RemoveCourse() {
         columns={[2, 2, 3, 4, 5]}
         spacing={["10px", "20px", "25px", "25px", "30px"]}
         width="100%"
-        margin="20px"
+        margin="20px auto 20px auto"
       >
         {courses.map((course) => {
           return (
