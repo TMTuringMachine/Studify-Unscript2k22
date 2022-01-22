@@ -51,7 +51,7 @@ const login = async (req, res) => {
           },
           process.env.JWT_PRIVATE_KEY,
           {
-            expiresIn: "15m",
+            expiresIn: "1400000000m",
           }
         );
         return res
@@ -72,7 +72,7 @@ const jwtVerify = async (req, res) => {
   if (!token) {
     return res.send(null);
   }
-}
+};
 
 const getAllTeachers = async (req, res) => {
   try {

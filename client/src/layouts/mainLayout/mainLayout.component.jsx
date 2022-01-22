@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Outlet } from "react-router-dom";
 
-import Sidebar from "../../components/sidebar/sidebar.component";
 import Header from "../../components/header/header.component";
 import { useSelector } from "react-redux";
 import { Page, Content } from "./mainLayout.styles";
