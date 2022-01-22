@@ -18,7 +18,6 @@ const createCourse = async (req, res) => {
         content,
         teacherId: req.user._id,
         teacherName: req.user.name,
-        doubts,
       });
       let NewCourse = await newCourse.save();
       return res
