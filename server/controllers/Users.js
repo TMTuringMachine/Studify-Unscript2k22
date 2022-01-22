@@ -1,6 +1,13 @@
 const User = require("../models/UserSchema");
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const Razorpay = require("razorpay");
+
+let Razor = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+})
 
 const signup = async (req, res) => {
   var { name, email, phone, password, cpassword } = req.body;
@@ -84,6 +91,21 @@ const uploadTeacherData = async (req, res) => {
   );
   res.status(200).send("Teacher Data Uploaded, wait for admin approval");
 };
+
+const buyCourse = async (req, res) => {
+  const {course_id, amount} = req.body;
+  let options = {
+    amount,
+    currency: "INR",
+    receipt: "order_receipt_0.1"
+  }
+  try {
+    const res = await Razor.orders.create(options);
+    console.log(res);
+  } catch (error) {
+    
+  }
+}
 
 module.exports = {
   signup,

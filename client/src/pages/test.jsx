@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+// import 
 
 const Test = () => {
   const showWidget = () => {
@@ -16,9 +17,13 @@ const Test = () => {
     );
     widget.open();
   };
+  const handlePayment = () => {
+
+  }
   return (
     <div>
       <Button onClick={showWidget}>UPLOAD FILES</Button>
+      <Button onClick={handlePayment}>Buy Course</Button>
     </div>
   );
 };

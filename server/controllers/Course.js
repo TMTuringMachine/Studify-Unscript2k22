@@ -27,7 +27,7 @@ export const createCourse = async (req, res) => {
         newCourse = await Course.create(newCourse).save();
         return res.status(200).json({ok: true, data: newCourse})
     } catch (error) {
-        return res.status(500).json(error)    
+        return res.status(500).json({ok: false, data: error});    
     }
 
 }
