@@ -101,7 +101,7 @@ const uploadTeacherData = async (req, res) => {
   const { domain, idProof } = req.body;
   const data = await User.findOneAndUpdate(
     { email: req.user.email },
-    { domain, idProof }
+    { domain, idProof, isPending: true }
   );
   res.status(200).send("Teacher Data Uploaded, wait for admin approval");
 };

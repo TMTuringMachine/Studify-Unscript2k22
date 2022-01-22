@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useRazorpay from "react-razorpay";
-import {useSelector, useDispatch} from 'react-redux';
-import API from '../../utils/axios';
-import {initializeUser} from "../../hooks/useAuth";
+import { useSelector, useDispatch } from "react-redux";
+import API from "../../utils/axios";
+import { initializeUser } from "../../hooks/useAuth";
 
 import { CourseContainer, CourseImage } from "./course.styles";
+import { deleteCourse } from "../../hooks/useCourse";
 
 let course = {
   thumbnail:
@@ -23,9 +24,9 @@ const Course = () => {
   const dispatch = useDispatch();
   const props = useLocation();
   console.log(props);
-  course = props.state.course;
+  course = props?.state?.course;
   const Razorpay = useRazorpay();
-  const {user} = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const createOrder = async (amount) => {
     const res = await API.post("/user/buyCourse/createorder", { amount });
     return res;
@@ -46,12 +47,12 @@ const Course = () => {
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       // callback_url: "http://localhost:3000/user/razor/callback",
       handler: async (res) => {
-        // alert(res.razorpay_payment_id); 
+        // alert(res.razorpay_payment_id);
         // alert(res.razorpay_order_id);
         // alert(res.razorpay_signature) ;
         const payload = {
-          payment_id: res.razorpay_payment_id, 
-          order_id: res.razorpay_order_id, 
+          payment_id: res.razorpay_payment_id,
+          order_id: res.razorpay_order_id,
           razor_signature: res.razorpay_signature,
           user_id: user._id,
           course_id: course._id
@@ -61,9 +62,9 @@ const Course = () => {
         console.log(response);
       },
       prefill: {
-          "name": user.name,
-          "email": user.email,
-          "contact": user.phone
+        name: user.name,
+        email: user.email,
+        contact: user.phone,
       },
       notes: {
         address: "Razorpay Corporate Office",
@@ -73,7 +74,7 @@ const Course = () => {
       },
     };
     var rzp1 = new Razorpay(options);
-    rzp1.on('payment.failed', (response) => {
+    rzp1.on("payment.failed", (response) => {
       alert(response.error.code);
       alert(response.error.description);
       alert(response.error.source);
@@ -129,9 +130,17 @@ const Course = () => {
     </>
     )
   }
+  // };
+  const currUser = useSelector((store) => store.auth.user);
+  const navigate = useNavigate();
   return (
     <CourseContainer
-      padding={["10px 5px 20px 5px","10px 5px 20px 5px","10px 5px 20px 5px" , "10px 30px 20px 30px"]}
+      padding={[
+        "10px 5px 20px 5px",
+        "10px 5px 20px 5px",
+        "10px 5px 20px 5px",
+        "10px 30px 20px 30px",
+      ]}
     >
       <SimpleGrid columns={[1, null, 2, 2, 2]} marginTop="10px">
         <Box>
@@ -140,25 +149,42 @@ const Course = () => {
         <Box>
           <Box
             margin="0 auto"
-            height={["fit-content", "fit-content","fit-content", "35vh"]}
+            height={["fit-content", "fit-content", "fit-content", "35vh"]}
             width="95%"
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
           >
-            <div>
-              <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
-                {course.title}
-              </Text>
-              <Text margin={["0 0 10px 0",null]} fontSize={["md", "lg", "lg", "xl", "xl"]} color="#6d6d6d">
-                by {course.teacherName}
-              </Text>
-            </div>
-            <Rating value={5} readOnly size="large" />
-            <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
-              {" "}
-              &#8377; {course.price}
-            </Text>
+            <Flex justifyContent="space-between" alignItems="flex-start">
+              <Box>
+                <div>
+                  <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
+                    {course.title}
+                  </Text>
+                  <Text
+                    margin={["0 0 10px 0", null]}
+                    fontSize={["md", "lg", "lg", "xl", "xl"]}
+                    color="#6d6d6d"
+                  >
+                    by {course.teacherName}
+                  </Text>
+                </div>
+                <Rating value={5} readOnly size="large" />
+                <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
+                  {" "}
+                  &#8377; {course.price}
+                </Text>
+              </Box>
+              {course.teacherId === currUser._id && (
+                <Button
+                  onClick={() => deleteCourse(course._id, navigate)}
+                  colorScheme="red"
+                  variant="outline"
+                >
+                  Delete this Course
+                </Button>
+              )}
+            </Flex>
           </Box>
           <Flex width="95%" margin={["20px auto 0px auto","0 auto" ]}>
             {isEnrolled? <EnrololedButton /> : <NotEnrolledButton />}

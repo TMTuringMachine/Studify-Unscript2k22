@@ -72,7 +72,7 @@ const jwtVerify = async (req, res) => {
   if (!token) {
     return res.send(null);
   }
-}
+};
 
 const getAllTeachers = async (req, res) => {
   try {
@@ -103,6 +103,7 @@ const verifyTeacher = async (req, res) => {
     const { teacherID } = req.body;
     const verified = await User.findByIdAndUpdate(teacherID, {
       isTeacher: true,
+      isPending: false,
     });
     res.status(200).json({ ok: true, message: "Teacher Verified", verified });
   } catch (error) {
