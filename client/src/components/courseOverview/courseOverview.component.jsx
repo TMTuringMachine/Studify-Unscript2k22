@@ -13,14 +13,16 @@ const course = {
   author: "Dr. A.B.C",
 };
 
-const CourseOverview = () => {
+const CourseOverview = (props) => {
+  console.log(props.course)
   return (
     <CourseOverviewContainer>
-      <CourseImage url="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" />
+      <CourseImage url={props.course.thumbnail} />
       <CourseData>
-        <div className="course-name">{course.name}</div>
-        <div className="course-author">{course.author}</div>
+        <div className="course-name">{props.course.title}</div>
+        <div className="course-author">{props.course.teacherName}</div>
         <Rating value={5} readOnly />
+        <div>Price:{props.course.price}</div>
       <Button width="100%" size="sm" backgroundColor="#6C63FF" color="#fff" _hover="">VIEW</Button>
 
       </CourseData>
