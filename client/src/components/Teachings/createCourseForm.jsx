@@ -5,6 +5,7 @@ import { Input } from "@chakra-ui/input";
 import { CreateProfileHook } from "../../hooks/useProfile";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { postCourse } from "../../hooks/useCourse";
 
 const CreateCourseForm = () => {
   const [videos, setVideos] = useState([]);
@@ -14,7 +15,6 @@ const CreateCourseForm = () => {
     thumbnail: "",
     description: "",
     price: null,
-    content: [],
   });
 
   const dispatch = useDispatch();
@@ -38,9 +38,9 @@ const CreateCourseForm = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(videos);
-    setData({ ...data, content: videos });
-    console.log(data);
+    const newData = { ...data, content: videos };
+    console.log(newData);
+    postCourse(dispatch, newData, navigate);
   };
   const VideoHandler = () => {
     let widget = window.cloudinary.createUploadWidget(
@@ -54,10 +54,8 @@ const CreateCourseForm = () => {
             title: result.info.original_filename,
             videoURL: result.info.url,
           };
-          setVideos([...videos, video]);
-          setData({ ...data, content: videos });
-          console.log(videos);
-          console.log(result.info);
+          //   setData({ ...data, content: [...data.content, video] });
+          setVideos((videos) => [...videos, video]);
         }
       }
     );
@@ -76,7 +74,7 @@ const CreateCourseForm = () => {
           w="20rem"
           borderRadius="5px"
           required
-          name="education"
+          name="title"
           onChange={(e) => onChangeHandler(e)}
           type="text"
         />
@@ -90,7 +88,7 @@ const CreateCourseForm = () => {
           backgroundColor="#e6e6e6"
           id="pass"
           w="20rem"
-          name="gender"
+          name="description"
           borderRadius="5px"
           required
           onChange={(e) => onChangeHandler(e)}
@@ -106,7 +104,7 @@ const CreateCourseForm = () => {
           backgroundColor="#e6e6e6"
           id="pass"
           w="20rem"
-          name="address"
+          name="price"
           borderRadius="5px"
           required
           onChange={(e) => onChangeHandler(e)}
