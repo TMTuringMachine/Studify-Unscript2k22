@@ -62,6 +62,10 @@ export default function Router() {
         {
           path:"/wishlist",
           element:<MyWishlist/>
+        },
+        {
+          path:"/course/:id",
+          element:<Course/>
         }
       ],
     },
@@ -90,6 +94,9 @@ const MyCourses = Loadable(
 )
 const MyWishlist = Loadable(
   lazy(()=>import("../pages/MyWishlist/myWishlist.component"))
+)
+const Course  = Loadable(
+  lazy(()=> import("../pages/Course/course.component"))
 )
 
 const Test = Loadable(lazy(() => import("../pages/test")));
