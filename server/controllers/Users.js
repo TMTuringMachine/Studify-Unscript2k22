@@ -158,6 +158,7 @@ const razorCallback = (req, res) => {
 const verifyPayments = async (req, res) => {
   const razor_secret = process.env.WEBHOOK_SECRET;
   const {user_id, course_id, payment_id, order_id, razor_signature} = req.body;
+  console.log(req.body);
   const razor_ids = `${order_id} | ${payment_id}`;
   try {
     const generatedSignature = crypto.createHmac('sha256', razor_secret).update(razor_ids.toString()).digest('hex');

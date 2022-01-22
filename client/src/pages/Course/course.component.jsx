@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
 import { useLocation } from "react-router-dom";
@@ -19,6 +19,7 @@ let course = {
 };
 
 const Course = () => {
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const dispatch = useDispatch();
   const props = useLocation();
   console.log(props);
@@ -53,7 +54,7 @@ const Course = () => {
           order_id: res.razorpay_order_id, 
           razor_signature: res.razorpay_signature,
           user_id: user._id,
-          course_id: "faksdkfjd"
+          course_id: course._id
         }
         const response = await API.post("/user/razor/callback", payload);
         initializeUser(dispatch);
@@ -81,6 +82,52 @@ const Course = () => {
       alert(response.error.metadata.order_id);
     });
     rzp1.open();
+  }
+  useEffect(() => {
+    const enrolledCourses = user.myEnrolledCourses;
+    // eslint-disable-next-line array-callback-return
+    enrolledCourses.map(c => {
+      if(c.courseID === course._id) setIsEnrolled(true);
+    })
+
+  }, [user])
+  const EnrololedButton = () => {
+    return (
+      <Button
+        width="48%"
+        backgroundColor="#6C63FF"
+        _hover=""
+        color="#fff"
+        onClick={handlePayment}
+      >
+        Resume
+      </Button>
+    )
+  }
+  const NotEnrolledButton = () => {
+    return (
+      <>
+        <Button
+          width="48%"
+          backgroundColor="#6C63FF"
+          _hover=""
+          color="#fff"
+          onClick={handlePayment}
+        >
+        BUY NOW
+      </Button>
+      <Spacer />
+      <Button
+        width="48%"
+        variant="outline"
+        color="#6C63FF"
+        borderColor="#6C63FF"
+        borderWidth="2px"
+      >
+        ADD TO WISHLIST
+      </Button> 
+    </>
+    )
   }
   return (
     <CourseContainer
@@ -114,7 +161,8 @@ const Course = () => {
             </Text>
           </Box>
           <Flex width="95%" margin={["20px auto 0px auto","0 auto" ]}>
-            <Button
+            {isEnrolled? <EnrololedButton /> : <NotEnrolledButton />}
+            {/* <Button
               width="48%"
               backgroundColor="#6C63FF"
               _hover=""
@@ -132,7 +180,7 @@ const Course = () => {
               borderWidth="2px"
             >
               ADD TO WISHLIST
-            </Button>
+            </Button> */}
           </Flex>
         </Box>
       </SimpleGrid>
