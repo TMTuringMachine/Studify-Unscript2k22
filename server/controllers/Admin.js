@@ -14,7 +14,9 @@ const signup = async (req, res) => {
     if (adminExists) {
       res.status(422).send("Admin with this email already exists");
     } else if (userExists) {
-      res.status(422).send("User with this email already exists. Please Login as a User");
+      res
+        .status(422)
+        .send("User with this email already exists. Please Login as a User");
     } else if (password !== cpassword) {
       res.status(422).send("Passwords do not match");
     } else {
@@ -33,13 +35,13 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      return res.status(400).send("Email or password cannot be blank");
+      return res.status(200).send("Email or password cannot be blank");
     }
     const AdminLogin = await Admin.findOne({ email: email });
     if (AdminLogin) {
       const isValid = await bcrypt.compare(password, AdminLogin.password);
       if (!isValid) {
-        res.status(400).send("Incorrect Credentials");
+        res.status(200).send({ ok: false, message: "Incorrect Credentials" });
       } else {
         const token = jwt.sign(
           {
@@ -51,10 +53,12 @@ const login = async (req, res) => {
             expiresIn: "15m",
           }
         );
-        return res.status(200).send({ token, message: "Login Successfull!" });
+        return res
+          .status(200)
+          .send({ ok: true, message: "Login Successfull!", token, AdminLogin });
       }
     } else {
-      res.status(400).send("User does not exist");
+      res.status(200).send({ ok: false, message: "User does not exist" });
     }
   } catch (error) {
     console.log(error);

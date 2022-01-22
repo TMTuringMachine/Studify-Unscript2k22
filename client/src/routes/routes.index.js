@@ -40,6 +40,10 @@ export default function Router() {
       element: <Login />,
     },
     {
+      path: "/admin/login",
+      element: <AdminLogin />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -76,3 +80,6 @@ const Home = Loadable(
 
 const Test = Loadable(lazy(() => import("../pages/test")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
+const AdminLogin = Loadable(
+  lazy(() => import("../pages/login/loginAdmin.component"))
+);

@@ -6,12 +6,10 @@ import { Input } from "@chakra-ui/input";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "@chakra-ui/button";
-
 import { useDispatch } from "react-redux";
-
 import { LoginHandler } from "../../hooks/useAuth";
 import AlertComponent from "../../components/Alert/Alert.component";
-const SignIn = () => {
+const AdminLogin = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -24,7 +22,7 @@ const SignIn = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    LoginHandler(data, dispatch, false).then((res) => {
+    LoginHandler(data, dispatch, true).then((res) => {
       if (res.error) {
         setIsError(!isError);
         setErrorMessage(res.error);
@@ -56,7 +54,7 @@ const SignIn = () => {
             p="1rem"
             pt={{ base: "4rem", md: "0" }}
           >
-            Login
+            Admin Login
           </Box>
           <form onSubmit={(e) => onSubmitHandler(e)}>
             <label htmlFor="email">Email</label>
@@ -120,4 +118,4 @@ const ImageStyled = styled.div`
   }
 `;
 
-export default SignIn;
+export default AdminLogin;

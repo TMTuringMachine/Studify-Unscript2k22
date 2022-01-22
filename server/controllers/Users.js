@@ -50,7 +50,7 @@ const login = async (req, res) => {
         );
         return res
           .status(200)
-          .json({ ok: true, message: "Login Successfull!", token });
+          .json({ ok: true, message: "Login Successfull!", token, userLogin });
       }
     } else {
       res.status(200).send({ ok: false, message: "User does not exist" });
