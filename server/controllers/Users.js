@@ -4,16 +4,16 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const Razorpay = require("razorpay");
 let crypto;
-try{
+try {
   crypto = require("crypto");
-}catch(err) {
+} catch (err) {
   console.log("crypto module is node supported");
 }
 
 let Razor = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
-})
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const signup = async (req, res) => {
   var { name, email, phone, password, cpassword } = req.body;
@@ -58,7 +58,7 @@ const login = async (req, res) => {
           },
           process.env.JWT_PRIVATE_KEY,
           {
-            expiresIn: "15m",
+            expiresIn: "14000000m",
           }
         );
         return res
@@ -93,7 +93,6 @@ const uploadData = async (req, res) => {
     { email: req.user.email },
     { education, DateOfBirth, age, gender, address, image, hasProfile: true }
   );
-  
   res.status(200).send(user);
 };
 
@@ -107,53 +106,53 @@ const uploadTeacherData = async (req, res) => {
 };
 
 const buyCourse = async (req, res) => {
-  const {amount} = req.body;
+  const { amount } = req.body;
   let options = {
     amount,
     currency: "INR",
-    receipt: "order_receipt_0.1"
-  }
+    receipt: "order_receipt_0.1",
+  };
   try {
     const razorRes = await Razor.orders.create(options);
-    console.log("razorRes:")
+    console.log("razorRes:");
     console.log(razorRes);
-    return res.status(200).json({ok: true, razorRes});
+    return res.status(200).json({ ok: true, razorRes });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ok: false, error});
+    return res.status(200).json({ ok: false, error });
   }
-}
+};
 
 const razorCallback = (req, res) => {
   const webhookSecret = process.env.WEBHOOK_SECRET || "";
   console.log(`webhook secret: ${webhookSecret}`);
-  const shasum = crypto.createHmac('sha256', webhookSecret)
-	shasum.update(JSON.stringify(req.body))
-	const digest = shasum.digest('hex')
+  const shasum = crypto.createHmac("sha256", webhookSecret);
+  shasum.update(JSON.stringify(req.body));
+  const digest = shasum.digest("hex");
   console.log("req body");
   console.log(req.body);
 
-	console.log(digest, req.body.payload)
-  let razorSignature = req.headers['x-razorpay-signature'];
-	if (razorSignature && (digest === razorSignature)) {
-		console.log('request is legit')
-		// process it
+  console.log(digest, req.body.payload);
+  let razorSignature = req.headers["x-razorpay-signature"];
+  if (razorSignature && digest === razorSignature) {
+    console.log("request is legit");
+    // process it
     console.log(req.body);
-		// require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
-    
+    // require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
+
     // return res.status(200).json({ok: true, data: req.body});
 
-    return res.status(200).json({ok: true, data: req.body});
+    return res.status(200).json({ ok: true, data: req.body });
     // return res.status(200).json({ok: true});
-	} else {
-		// pass it
+  } else {
+    // pass it
     console.log("digest: ");
     console.log(digest);
     console.log("req.headers[dksjfh]: ");
-    console.log(req.headers['x-razorpay-signature']);
-    return res.status(200).json({ok: false});
-	}
-}
+    console.log(req.headers["x-razorpay-signature"]);
+    return res.status(200).json({ ok: false });
+  }
+};
 
 const verifyPayments = async (req, res) => {
   const razor_secret = process.env.RAZORPAY_KEY_SECRET;

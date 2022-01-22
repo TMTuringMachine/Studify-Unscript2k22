@@ -12,9 +12,8 @@ app.use(express.json());
 require("./db/conn");
 app.use("/user", require("./routes/UserRoutes"));
 app.use("/admin", require("./routes/AdminRoutes"));
-app.get("/", (req, res) => {
-  res.send("hello from the server");
-})
+app.use("/course", require("./routes/CourseRoutes"));
+
 
 app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);

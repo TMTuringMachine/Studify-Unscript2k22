@@ -8,7 +8,7 @@ import {
   registerSuccess,
 } from "../redux/slices/auth";
 import setToken from "../utils/setToken";
-export const SignupHandler = async (formData, dispatch) => {
+export const SignupHandler = async (formData, dispatch, navigate) => {
   try {
     const body = JSON.stringify(formData);
     const config = {
@@ -18,6 +18,7 @@ export const SignupHandler = async (formData, dispatch) => {
     };
     const res = await axios.post("/user/signup", body, config);
     dispatch(registerSuccess());
+    navigate("/login");
     console.log(res);
   } catch (e) {
     console.log(e);
