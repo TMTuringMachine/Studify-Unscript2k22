@@ -10,6 +10,7 @@ const isTeacher = (req, res, next) => {
       error: "You need to be a teacher to access this route",
     });
 };
+
 module.exports = {
-  isTeacher,
+  isTeacher
 };

@@ -15,6 +15,9 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.get("/jwtVerify", jwtVerify);
 router.get("/test", isAuthenticated);
+router.post("/hi", (req, res) => {
+  res.send("working");
+});
 router.post("/uploadData", isAuthenticated, uploadData);
 router.post("/uploadTeacherData", isAuthenticated, uploadTeacherData);
 router.post("/buyCourse/createorder", buyCourse);
@@ -23,5 +26,11 @@ router.post("/razor/callback", (req, res) => {
   res.redirect("/");
 });
 
+router.post("/signup", signup);
+router.post("/login", login);
+router.get("/jwtVerify", jwtVerify);
+router.get("/test", isAuthenticated);
+router.post("/uploadData", isAuthenticated, uploadData);
+router.post("/uploadTeacherData", isAuthenticated, uploadTeacherData);
 
 module.exports = router;

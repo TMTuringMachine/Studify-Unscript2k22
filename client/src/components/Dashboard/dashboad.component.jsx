@@ -4,6 +4,8 @@ import React, { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 const DashBoard = () => {
   const user = useSelector((store) => store.auth?.user);
   console.log(user);
@@ -19,23 +21,48 @@ const DashBoard = () => {
             _hover={{ bg: "#a6a0ff" }}
             backgroundColor="#6c63ff"
           >
-            Create Your Profile
+            <Link to="/createProfile">Create Your Profile</Link>
           </Button>
         </Box>
       ) : (
-        <Box>
-          <h1>Your Profile</h1>
-          <h2>Age: </h2>
-          <p>{user.age}</p>
-          <h2>Address: </h2>
-          <p>{user.address}</p>
-          <h2>Education</h2>
-          <p>{user.education}</p>
-          <h2>Profile</h2>
-          <img src={user.image} alt="" />
-          <h2>Gender</h2>
-          <p>{user.gender}</p>
-        </Box>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box textAlign="center" fontSize={{ base: "1rem", md: "2.8rem" }}>
+            Your Profile
+          </Box>
+          <Image
+            maxW={{ base: "8rem", md: "14rem" }}
+            w={{ base: "8rem", md: "14rem" }}
+            borderRadius="50%"
+            h={{ base: "8rem", md: "14rem" }}
+            maxH={{ base: "8rem", md: "14rem" }}
+            src={user.image}
+          ></Image>
+          <Box fontSize={{ md: "2.2rem" }}>Welcome, {user.name}</Box>
+          <Flex
+            p="1rem"
+            justifyContent="space-between"
+            alignItems="center"
+            w="100%"
+            flexWrap="wrap"
+          >
+            <Box>Age: {user.age}</Box>
+            <Box>Gender: {user.gender}</Box>
+          </Flex>
+          <Flex
+            p="1rem"
+            justifyContent="space-between"
+            alignItems="center"
+            w="100%"
+            flexWrap="wrap"
+          >
+            <Box mr="0.5rem">Education: {user.education}</Box>
+            <Box>Email: {user.email}</Box>
+          </Flex>
+        </Flex>
       )}
     </Flex>
   );

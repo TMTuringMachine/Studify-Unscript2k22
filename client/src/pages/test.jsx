@@ -33,7 +33,7 @@ const Test = () => {
       key: "rzp_test_7o3KFikLV8ENjP", // Enter the Key ID generated from the Dashboard
       amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: order.currency,
-      name: "Acme Corp",
+      name: "Studify",
       description: "Test Transaction",
       // "image": "https://example.com/your_logo",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1

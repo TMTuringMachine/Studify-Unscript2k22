@@ -9,6 +9,7 @@ import { Button } from "@chakra-ui/react";
 
 import { SignupHandler } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 const SignIn = () => {
   const [data, setData] = useState({
@@ -19,12 +20,13 @@ const SignIn = () => {
     cpassword: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    SignupHandler(data, dispatch);
+    SignupHandler(data, dispatch, navigate);
   };
   return (
     <Flex>
@@ -72,7 +74,6 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="phone"
-            type="text"
             w="20rem"
             name="phone"
             borderRadius="5px"
@@ -88,7 +89,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="email"
-            type="text"
+            
             w="20rem"
             borderRadius="5px"
             required
@@ -104,7 +105,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="pass"
-            type="text"
+            
             w="20rem"
             borderRadius="5px"
             required
@@ -120,7 +121,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="cpass"
-            type="text"
+          
             w="20rem"
             borderRadius="5px"
             name="cpassword"
