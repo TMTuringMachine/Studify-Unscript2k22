@@ -3,6 +3,12 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const Razorpay = require("razorpay");
+let crypto;
+try{
+  crypto = require("crypto");
+}catch(err) {
+  console.log("crypto module is node supported");
+}
 
 let Razor = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -111,6 +117,7 @@ const buyCourse = async (req, res) => {
   }
   try {
     const razorRes = await Razor.orders.create(options);
+    console.log("razorRes:")
     console.log(razorRes);
     return res.status(200).json({ok: true, razorRes});
   } catch (error) {
@@ -120,8 +127,34 @@ const buyCourse = async (req, res) => {
 }
 
 const razorCallback = (req, res) => {
-  console.log("hey");
-  res.redirect("/");
+  const webhookSecret = process.env.WEBHOOK_SECRET || "";
+  console.log(`webhook secret: ${webhookSecret}`);
+  const shasum = crypto.createHmac('sha256', webhookSecret)
+	shasum.update(JSON.stringify(req.body))
+	const digest = shasum.digest('hex')
+  console.log("req body");
+  console.log(req.body);
+
+	console.log(digest, req.body.payload)
+  let razorSignature = req.headers['x-razorpay-signature'];
+	if (razorSignature && (digest === razorSignature)) {
+		console.log('request is legit')
+		// process it
+    console.log(req.body);
+		// require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
+    
+    // return res.status(200).json({ok: true, data: req.body});
+
+    return res.status(200).json({ok: true, data: req.body});
+    // return res.status(200).json({ok: true});
+	} else {
+		// pass it
+    console.log("digest: ");
+    console.log(digest);
+    console.log("req.headers[dksjfh]: ");
+    console.log(req.headers['x-razorpay-signature']);
+    return res.status(200).json({ok: false});
+	}
 }
 
 module.exports = {

@@ -7,10 +7,16 @@ router.post("/signup", signup)
 router.post("/login", login)
 router.get("/jwtVerify", jwtVerify)
 router.get("/test", isAuthenticated)
+router.post("/hi", (req, res) => {
+    res.send("working");
+})
 router.post("/uploadData",isAuthenticated,uploadData)
 router.post("/uploadTeacherData",isAuthenticated,uploadTeacherData)
 router.post("/buyCourse/createorder", buyCourse);
-router.post("buyCourse/razor/callback", razorCallback);
+router.post("/buyCourse/razor/callback", razorCallback);
+router.post("/razor/callback", (req, res) => {
+    res.redirect("/");
+})
 
 
 module.exports = router;

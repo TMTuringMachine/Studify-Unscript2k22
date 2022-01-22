@@ -38,7 +38,7 @@ const Test = () => {
       "description": "Test Transaction",
       // "image": "https://example.com/your_logo",
       "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "callback_url": "/user/buyCourse/razor/callback",
+      "callback_url": "http://localhost:3000/user/razor/callback",
       // "prefill": {
       //     "name": "Gaurav Kumar",
       //     "email": "gaurav.kumar@example.com",
