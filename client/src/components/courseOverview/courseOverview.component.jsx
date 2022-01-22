@@ -17,7 +17,7 @@ const course = {
 const CourseOverview = (props) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/course/id");
+    navigate("/course/id", {state: {course: props.course}});
   };
   console.log(props.course);
   return (

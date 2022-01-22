@@ -8,6 +8,7 @@ const {
   uploadTeacherData,
   buyCourse,
   razorCallback,
+  verifyPayments
 } = require("../controllers/Users");
 const { isAuthenticated } = require("../middlewares/Auth");
 
@@ -20,11 +21,9 @@ router.post("/hi", (req, res) => {
 });
 router.post("/uploadData", isAuthenticated, uploadData);
 router.post("/uploadTeacherData", isAuthenticated, uploadTeacherData);
-router.post("/buyCourse/createorder", buyCourse);
+router.post("/buyCourse/createorder", isAuthenticated, buyCourse);
 router.post("/buyCourse/razor/callback", razorCallback);
-router.post("/razor/callback", (req, res) => {
-  res.redirect("/");
-});
+router.post("/razor/callback", verifyPayments);
 
 router.post("/signup", signup);
 router.post("/login", login);

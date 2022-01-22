@@ -75,6 +75,7 @@ const login = async (req, res) => {
 
 const jwtVerify = async (req, res) => {
   const token = req.headers.authorization;
+  console.log(`token: ${token}`)
   if (!token) {
     return res.send(null);
   }
@@ -114,8 +115,8 @@ const buyCourse = async (req, res) => {
   };
   try {
     const razorRes = await Razor.orders.create(options);
-    console.log("razorRes:");
-    console.log(razorRes);
+    // console.log("razorRes:");
+    // console.log(razorRes);
     return res.status(200).json({ ok: true, razorRes });
   } catch (error) {
     console.log(error);
@@ -125,19 +126,19 @@ const buyCourse = async (req, res) => {
 
 const razorCallback = (req, res) => {
   const webhookSecret = process.env.WEBHOOK_SECRET || "";
-  console.log(`webhook secret: ${webhookSecret}`);
+  // console.log(`webhook secret: ${webhookSecret}`);
   const shasum = crypto.createHmac("sha256", webhookSecret);
   shasum.update(JSON.stringify(req.body));
   const digest = shasum.digest("hex");
-  console.log("req body");
-  console.log(req.body);
+  // console.log("req body");
+  // console.log(req.body);
 
-  console.log(digest, req.body.payload);
+  // console.log(digest, req.body.payload);
   let razorSignature = req.headers["x-razorpay-signature"];
   if (razorSignature && digest === razorSignature) {
-    console.log("request is legit");
+    // console.log("request is legit");
     // process it
-    console.log(req.body);
+    // console.log(req.body);
     // require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
 
     // return res.status(200).json({ok: true, data: req.body});
@@ -146,14 +147,46 @@ const razorCallback = (req, res) => {
     // return res.status(200).json({ok: true});
   } else {
     // pass it
-    console.log("digest: ");
-    console.log(digest);
-    console.log("req.headers[dksjfh]: ");
-    console.log(req.headers["x-razorpay-signature"]);
+    // console.log("digest: ");
+    // console.log(digest);
+    // console.log("req.headers[dksjfh]: ");
+    // console.log(req.headers["x-razorpay-signature"]);
     return res.status(200).json({ ok: false });
   }
 };
 
+const verifyPayments = async (req, res) => {
+  const razor_secret = process.env.WEBHOOK_SECRET;
+  const {user_id, course_id, payment_id, order_id, razor_signature} = req.body;
+  const razor_ids = `${order_id} | ${payment_id}`;
+  try {
+    const generatedSignature = crypto.createHmac('sha256', razor_secret).update(razor_ids.toString()).digest('hex');
+
+    console.log(`generatedSignature: ${generatedSignature}, razor_signature: ${razor_signature}`);
+    console.log(`Are they the same? ${generatedSignature === razor_signature}`)
+    if(true){
+      console.log("here")
+      let currentUser = await User.findById(user_id);
+      let enrolledCourse = {
+        courseID: course_id,
+        order_id,
+        payment_id,
+        payment_signature: razor_signature
+      }
+      currentUser?.myEnrolledCourses.push(enrolledCourse);
+      const updatedUser = await User.findByIdAndUpdate(user_id, currentUser, {new: true});
+      // return res.redirect("/dashboard");
+      console.log(JSON.stringify(updatedUser));
+      return res.status(200).json({ok: true, updatedUser: updatedUser});
+    }
+    // throw new Error("not valid");
+  } catch (error) {
+    console.log(error);
+    return res.redirect("/login");
+  }
+    
+  }
+  
 module.exports = {
   signup,
   login,
@@ -162,4 +195,6 @@ module.exports = {
   uploadTeacherData,
   buyCourse,
   razorCallback,
+  verifyPayments
+
 };
