@@ -33,7 +33,7 @@ const SignIn = () => {
           setIsError(false);
         }, 3000);
       } else {
-        navigate("/");
+        navigate("/dashboard");
       }
     });
   };

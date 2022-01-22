@@ -56,11 +56,7 @@ const Sidebar = ({ toggleScreenState }) => {
       ) : (
         <>
           <IconButton onClick={toggleSidebar}>
-            <Icon
-              icon="ci:menu-alt-03"
-              fontSize={"2em"}
-              color={"#6C63FF"}
-            />
+            <Icon icon="ci:menu-alt-03" fontSize={"2em"} color={"#6C63FF"} />
           </IconButton>
           <SidebarDrawer
             open={isSidebarOpen}
@@ -74,17 +70,16 @@ const Sidebar = ({ toggleScreenState }) => {
                 onClick={toggleSidebar}
               />
               <div className="user-info">
-                <Avatar  />
+                <Avatar />
                 <div className="username">FirstName LastName</div>
               </div>
               <div className="sidebar-btns">
                 <SidebarBtn url="/home">ALL COURSES</SidebarBtn>
-                <SidebarBtn url="/">MY COURSES</SidebarBtn>
+                <SidebarBtn url="/myCourses">MY COURSES</SidebarBtn>
                 <SidebarBtn url="/">MY WISHLIST</SidebarBtn>
-                <SidebarBtn url="/">MY TEACHINGS</SidebarBtn>
-                
+                <SidebarBtn url="/myTeachings">MY TEACHINGS</SidebarBtn>
               </div>
-
+              <br />
               <LogoutBtn onClick={handleLogout}>
                 {" "}
                 <Icon icon="ri:logout-box-line" color="#000" />
