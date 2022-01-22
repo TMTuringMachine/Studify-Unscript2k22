@@ -155,6 +155,27 @@ const razorCallback = (req, res) => {
 	}
 }
 
+const verifyPayments = async (req, res) => {
+  const razor_secret = process.env.RAZORPAY_KEY_SECRET;
+  const {user_id, course_id, payment_id, order_id, razor_signature} = req.body;
+  const razor_ids = `${order_id} | ${payment_id}`;
+  
+  const generatedSignature = crypto.createHmac('sha256', razor_secret).update(body.toString()).digest('hex');
+  if(generatedSignature === razor_signature){
+    let currentUser = await User.findById(user_id);
+    let enrolledCourse = {
+      courseID = course_id,
+      order_id,
+      payment_id,
+      payment_signature = razor_signature
+    }
+    currentUser?.myEnrolledCourses.push(enrolledCourse);
+    return res.redirect("/dashboard");
+  }
+  return res.redirect("/login");
+  
+}
+
 module.exports = {
   signup,
   login,
@@ -162,5 +183,7 @@ module.exports = {
   uploadData,
   uploadTeacherData,
   buyCourse,
-  razorCallback
+  razorCallback,
+  verifyPayments
+
 };

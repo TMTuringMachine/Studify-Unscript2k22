@@ -1,4 +1,5 @@
-import axios from "../utils/axios";
+// import axios from "../utils/axios";
+import axios from 'axios';
 import Alert from "../components/Alert/Alert.component";
 import {
   initialize,
@@ -69,7 +70,7 @@ export const initializeUser = async (dispatch) => {
   if (token) {
     setToken(token);
     if (localStorage.getItem("userToken")) {
-      const res = await axios.get("/jwtVerify");
+      const res = await axios.get("/user/jwtVerify");
       dispatch(
         initialize({
           isLoggedIn: true,
