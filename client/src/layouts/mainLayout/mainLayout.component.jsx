@@ -35,9 +35,9 @@ const MainLayout = () => {
         /> */}
 
         <Header />
-        {/* <Content fullScreen={isFullScreen}> */}
-        <Outlet />
-        {/* </Content> */}
+        <Content>
+          <Outlet />
+        </Content>
       </Context.Provider>
     </Page>
   );

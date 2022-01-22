@@ -1,20 +1,24 @@
-import { Card, styled } from "@mui/material";
+// import { Card, styled } from "@mui/material";
+import styled from 'styled-components';
+import { Box } from '@chakra-ui/react'
 
 export const HomepageContainer = styled("div")(() => ({
   width: "100%",
   height: "100%",
-  display:'flex',
-  flexDirection:'column',
-  alignItems:'center',
+  overflow: 'scroll',
+  padding:'10px 30px 20px 30px',
+  // display:'flex',
+  // flexDirection:'column',
+  // alignItems:'center',
 }));
 
-export const HomepageBanner = styled("div")(({url})=>({
-    width:'95%',
-    height:'360px',
-    backgroundColor:'red',
-    margin:'20px 0',
+export const HomepageBanner = styled(Box)(({url})=>({
+    width:'100%',
+    // height:'400px',
     backgroundImage: `url('${url}')`,
     backgroundPosition: "center",
     backgroundSize: "cover",
     borderRadius:10,
+    margin: "20px auto",
 }))
+
