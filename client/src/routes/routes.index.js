@@ -55,6 +55,18 @@ export default function Router() {
           path: "/test",
           element: <Test />,
         },
+        {
+          path: "/myTeachings",
+          element: <MyTeachings />,
+        },
+        {
+          path: "/dashboard",
+          element: <DashBoard />,
+        },
+        {
+          path: "/createProfile",
+          element: <CreateProfile />,
+        },
       ],
     },
   ]);
@@ -82,4 +94,14 @@ const Test = Loadable(lazy(() => import("../pages/test")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const AdminLogin = Loadable(
   lazy(() => import("../pages/login/loginAdmin.component"))
+);
+const MyTeachings = Loadable(
+  lazy(() => import("../components/Teachings/myTeachings.component"))
+);
+
+const DashBoard = Loadable(
+  lazy(() => import("../components/Dashboard/dashboad.component"))
+);
+const CreateProfile = Loadable(
+  lazy(() => import("../components/Dashboard/createProfile.component"))
 );

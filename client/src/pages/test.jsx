@@ -18,7 +18,7 @@ const Test = () => {
   };
   return (
     <div>
-      <Button onClick={showWidget}>UPLOAD FILES</Button>
+      <Button onClick={showWidget}>add files</Button>
     </div>
   );
 };

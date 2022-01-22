@@ -24,10 +24,19 @@ const slice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
     },
+    profileUpdate(state, action) {
+      state = { ...state, user: action.payload, isLoggedIn: true };
+      return state;
+    },
   },
 });
 
-export const { registerSuccess, loginSuccess, initialize, logoutSuccess } =
-  slice.actions;
+export const {
+  registerSuccess,
+  loginSuccess,
+  initialize,
+  logoutSuccess,
+  profileUpdate,
+} = slice.actions;
 
 export default slice.reducer;

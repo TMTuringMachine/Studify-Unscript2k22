@@ -61,9 +61,7 @@ const login = async (req, res) => {
 };
 
 const jwtVerify = async (req, res) => {
-  console.log(req.headers);
   const token = req.headers.authorization;
-  console.log(token);
   if (!token) {
     return res.send(null);
   }
@@ -78,19 +76,18 @@ const jwtVerify = async (req, res) => {
 
 const uploadData = async (req, res) => {
   const { education, DateOfBirth, age, gender, address, image } = req.body;
-  console.log(req.body);
-  const data = await User.findOneAndUpdate(
+  const user = await User.findOneAndUpdate(
     { email: req.user.email },
     { education, DateOfBirth, age, gender, address, image, hasProfile: true }
   );
-  res.status(200).send("User Data Updated");
+  res.status(200).send(user);
 };
 
 const uploadTeacherData = async (req, res) => {
-  const { domain, rating, idProof } = req.body;
+  const { domain, idProof } = req.body;
   const data = await User.findOneAndUpdate(
     { email: req.user.email },
-    { domain, rating, idProof }
+    { domain, idProof }
   );
   res.status(200).send("Teacher Data Uploaded, wait for admin approval");
 };
