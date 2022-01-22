@@ -74,7 +74,6 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="phone"
-            type="text"
             w="20rem"
             name="phone"
             borderRadius="5px"
@@ -90,7 +89,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="email"
-            type="text"
+            
             w="20rem"
             borderRadius="5px"
             required
@@ -106,7 +105,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="pass"
-            type="text"
+            
             w="20rem"
             borderRadius="5px"
             required
@@ -122,7 +121,7 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="cpass"
-            type="text"
+          
             w="20rem"
             borderRadius="5px"
             name="cpassword"

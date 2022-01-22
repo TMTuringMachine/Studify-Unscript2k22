@@ -1,89 +1,92 @@
-const {model} = require("mongoose");
+const Course = require("../models/CourseSchema");
+const User = require("../models/UserSchema");
 
-const Course = model("COURSE");
-const Teacher = model("USER");
+const createCourse = async (req, res) => {
+  const { title, description, thumbnail, price, content, doubts } = req.body;
 
-export const createCourse = async (req, res) => {
-    const {title,
-         description,
-         thumbnail, 
-         content, 
-         rating, 
-         doubts 
-    } = req.body;
-    try {
-        
-        const teacher = req.user;
-        let newCourse = {
-            title,
-            description,
-            thumbnail,
-            content,
-            rating,
-            teacherId,
-            teacherName :teacher.name,
-            doubts
-        }
-        newCourse = await Course.create(newCourse).save();
-        return res.status(200).json({ok: true, data: newCourse})
-    } catch (error) {
-        return res.status(500).json({ok: false, data: error});    
-    }
-
-}
-
-export const getCourse = async (req, res) => {
-    const {course_id} = req.body;
-    try {
-        const course = await Course.findById(course_id);
-        return res.status(200).json({ok: true, course})
-    } catch (error) {
-        return res.status(500).json({ok: false, error});
-    }
-}
-
-export const getAllCourses = (_req, res) => {
-    try {
-        const allCourses = await Course.find({});
-        return res.status(200).json({ok: true, allCourses: allCourses});
-    } catch (error) {
-        return res.status(500).json({ok: false, error});
-    }
-}
-
-export const deleteCourse = async (req, res) => {
-    const {course_id} = req.body;
-    try {
-        const something = await Course.findByIdAndDelete(course_id);
-        return res.status(200).json({ok: true, message: "course deleted"});
-    } catch (error) {
-        return res.status(500).json({ok: false, error});
-    }
-}
-
-export const updateCourse = (req, res) => {
-
-    const {
-        course_id,
+  try {
+    let exists = await Course.findOne({ title: title });
+    if (exists) {
+      console.log(exists);
+      res.status(200).send("Course with this name already exists");
+    } else {
+      let newCourse = new Course({
         title,
         description,
-        thumbnail, 
-        content, 
-        rating, 
-        doubts 
-    } = req.body;
-    const teacher = req.user;
-    try {
-        let updatedCourse = {
-            title,
-            description,
-            thumbnail,
-            content,
-            rating,
-            doubts
-        }
-        updatedCourse = await Course.findByIdAndUpdate(course_id, updatedCourse, {new: true});
-    } catch (error) {
-        return res.status(500).json({ok: false, error});
+        thumbnail,
+        price,
+        content,
+        teacherId: req.user._id,
+        teacherName: req.user.name,
+        doubts,
+      });
+      let NewCourse = await newCourse.save();
+      return res
+        .status(200)
+        .json({ ok: true, message: "New Course Added by Teacher", NewCourse });
     }
-}
+  } catch (error) {
+    return res.status(500).json({ ok: false, data: error });
+  }
+};
+
+const deleteCourse = async (req, res) => {
+  const { courseId } = req.body;
+  try {
+    const Delete = await Course.findByIdAndDelete(courseId);
+    return res
+      .status(200)
+      .json({ ok: true, message: "Course Deleted by Teacher", Delete });
+  } catch (error) {
+    return res.status(500).json({ ok: false, error });
+  }
+};
+
+const updateCourse = async (req, res) => {
+  const { courseId, title, description, thumbnail, price, content, doubts } =
+    req.body;
+  try {
+    const updatedCourse = await Course.findByIdAndUpdate(courseId, {
+      title,
+      description,
+      thumbnail,
+      price,
+      content,
+      teacherId: req.user._id,
+      teacherName: req.user.name,
+      doubts,
+    });
+    return res
+      .status(200)
+      .json({ ok: true, message: "Course Updated by Teacher", updatedCourse });
+  } catch (error) {
+    return res.status(500).json({ ok: false, error });
+  }
+};
+
+const getCourse = async (req, res) => {
+  const { courseId } = req.body;
+  try {
+    const course = await Course.findById(courseId);
+    return res.status(200).json({ ok: true, course });
+  } catch (error) {
+    return res.status(500).json({ ok: false, error });
+  }
+};
+
+const getAllCourses = async (req, res) => {
+  try {
+    const allCourses = await Course.find({});
+    return res.status(200).json({ ok: true, allCourses: allCourses });
+  } catch (error) {
+    return res.status(500).json({ ok: false, error });
+  }
+};
+
+module.exports = {
+  createCourse,
+  getCourse,
+  getAllCourses,
+  deleteCourse,
+  updateCourse,
+};

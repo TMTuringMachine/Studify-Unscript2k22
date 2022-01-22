@@ -1,4 +1,4 @@
-export const isTeacher = (req, res, next) => {
+const isTeacher = (req, res, next) => {
   if (req.user.isTeacher) {
     next();
     return;
@@ -9,4 +9,8 @@ export const isTeacher = (req, res, next) => {
       ok: false,
       error: "You need to be a teacher to access this route",
     });
+};
+
+module.exports = {
+  isTeacher
 };

@@ -70,7 +70,7 @@ const Header = () => {
           margin="2vh 0px 2vh 1vw"
           borderRadius="10px"
         >
-          <DrawerCloseButton />
+          <DrawerCloseButton  />
 
           <DrawerHeader
             borderBottomWidth="1px"

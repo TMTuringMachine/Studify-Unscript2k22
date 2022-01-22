@@ -72,7 +72,7 @@ const jwtVerify = async (req, res) => {
   if (!token) {
     return res.send(null);
   }
-};
+}
 
 const getAllTeachers = async (req, res) => {
   try {

@@ -93,7 +93,6 @@ const uploadData = async (req, res) => {
     { email: req.user.email },
     { education, DateOfBirth, age, gender, address, image, hasProfile: true }
   );
-
   res.status(200).send(user);
 };
 

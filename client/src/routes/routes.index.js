@@ -56,6 +56,13 @@ export default function Router() {
           element: <MyTeachings />,
         },
         {
+          path:"/wishlist",
+          element:<MyWishlist/>
+        },
+        {
+          path:"/course/:id",
+          element:<Course/>
+        },{
           path: "/dashboard",
           element: <DashBoard />,
         },
@@ -97,8 +104,11 @@ const MyCourses = Loadable(
   lazy(() => import("../pages/MyCourses/myCourses.component"))
 );
 const MyWishlist = Loadable(
-  lazy(() => import("../pages/MyWishlist/myWishlist.component"))
-);
+  lazy(()=>import("../pages/MyWishlist/myWishlist.component"))
+)
+const Course  = Loadable(
+  lazy(()=> import("../pages/Course/course.component"))
+)
 
 const Test = Loadable(lazy(() => import("../pages/test")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
