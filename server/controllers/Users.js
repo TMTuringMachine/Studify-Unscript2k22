@@ -97,18 +97,25 @@ const uploadTeacherData = async (req, res) => {
 };
 
 const buyCourse = async (req, res) => {
-  const {course_id, amount} = req.body;
+  const {amount} = req.body;
   let options = {
     amount,
     currency: "INR",
     receipt: "order_receipt_0.1"
   }
   try {
-    const res = await Razor.orders.create(options);
-    console.log(res);
+    const razorRes = await Razor.orders.create(options);
+    console.log(razorRes);
+    return res.status(200).json({ok: true, razorRes});
   } catch (error) {
-    
+    console.log(error);
+    return res.status(200).json({ok: false, error});
   }
+}
+
+const razorCallback = (req, res) => {
+  console.log("hey");
+  res.redirect("/");
 }
 
 module.exports = {
@@ -117,4 +124,6 @@ module.exports = {
   jwtVerify,
   uploadData,
   uploadTeacherData,
+  buyCourse,
+  razorCallback
 };

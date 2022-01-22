@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 require("./db/conn");
-app.use("/", require("./routes/UserRoutes"));
+app.use("/user", require("./routes/UserRoutes"));
 app.use("/admin", require("./routes/AdminRoutes"));
 
 app.listen(port, () => {
