@@ -21,7 +21,7 @@ export const createCourse = async (req, res) => {
             content,
             rating,
             teacherId,
-            teacherName = teacher.name,
+            teacherName :teacher.name,
             doubts
         }
         newCourse = await Course.create(newCourse).save();

@@ -13,6 +13,10 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
   content: [
     {
       title: {
@@ -27,7 +31,6 @@ const courseSchema = new mongoose.Schema({
   ],
   rating: {
     type: Number,
-    required: true,
   },
   teacherId: {
     type: Schema.Types.ObjectId,
