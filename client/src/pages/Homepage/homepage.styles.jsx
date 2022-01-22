@@ -7,9 +7,7 @@ export const HomepageContainer = styled("div")(() => ({
   height: "100%",
   overflow: 'scroll',
   padding:'10px 30px 20px 30px',
-  // display:'flex',
-  // flexDirection:'column',
-  // alignItems:'center',
+
 }));
 
 export const HomepageBanner = styled(Box)(({url})=>({
