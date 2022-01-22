@@ -15,7 +15,7 @@ export const SignupHandler = async (formData, dispatch) => {
         "Content-type": "application/json",
       },
     };
-    const res = await axios.post("/signup", body, config);
+    const res = await axios.post("/user/signup", body, config);
     dispatch(registerSuccess());
     console.log(res);
   } catch (e) {
@@ -33,7 +33,7 @@ export const LoginHandler = async (formData, dispatch, isAdmin) => {
   if (isAdmin) {
     var res = await axios.post("/admin/login", body, config);
   } else {
-    var res = await axios.post("/login", body, config);
+    var res = await axios.post("/user/login", body, config);
   }
   let userToken = "";
   let adminToken = "";
