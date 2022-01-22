@@ -163,10 +163,10 @@ const verifyPayments = async (req, res) => {
   if(generatedSignature === razor_signature){
     let currentUser = await User.findById(user_id);
     let enrolledCourse = {
-      courseID = course_id,
+      courseID: course_id,
       order_id,
       payment_id,
-      payment_signature = razor_signature
+      payment_signature: razor_signature
     }
     currentUser?.myEnrolledCourses.push(enrolledCourse);
     return res.redirect("/dashboard");
