@@ -4,6 +4,7 @@ import { Button } from "@chakra-ui/button";
 import { Input } from "@chakra-ui/input";
 import { CreateProfileHook } from "../../hooks/useProfile";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CreateProfile = () => {
   const [data, setData] = useState({
@@ -15,6 +16,7 @@ const CreateProfile = () => {
     address: "",
     image: "",
   });
+  const dispatch = useDispatch();
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -36,7 +38,7 @@ const CreateProfile = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log(data);
-    CreateProfileHook(data, navigate);
+    CreateProfileHook(data,dispatch, navigate);
   };
 
   return (

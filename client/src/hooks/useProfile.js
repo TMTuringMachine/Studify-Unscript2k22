@@ -8,8 +8,9 @@ export const CreateProfileHook = async (data, dispatch, navigate) => {
         "Content-type": "application/json",
       },
     };
-    const res = await axios.post("/uploadData", body, config);
+    const res = await axios.post("/user/uploadData", body, config);
     dispatch(profileUpdate(res));
+    console.log(res)
     navigate("/dashboard");
   } catch (e) {}
 };
