@@ -2,7 +2,7 @@ var jwt = require("jsonwebtoken");
 const User = require("../models/UserSchema");
 
 const isAuthenticated = async (req, res, next) => {
-  const token = req.headers.token;
+  const token = req.headers.authorization;
   if (!token) {
     return res.status(401).send("Access Denied, No token provided");
   }
