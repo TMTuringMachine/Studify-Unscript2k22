@@ -65,6 +65,14 @@ const login = async (req, res) => {
     console.log(error);
   }
 };
+const jwtVerify = async (req, res) => {
+  console.log(req.headers);
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    return res.send(null);
+  }
+}
 
 const getAllTeachers = async (req, res) => {
   try {
