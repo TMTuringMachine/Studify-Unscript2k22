@@ -34,7 +34,7 @@ const SidebarBtn = ({ url, children }) => {
   };
   return (
     <Button
-      margin="15px 0"
+      margin="12px 0"
       width="80%"
       onClick={handleClick}
       backgroundColor={selected ? "#6C63FF" : "#fff"}
@@ -81,8 +81,8 @@ const Header = () => {
           </DrawerHeader>
           <DrawerBody display="flex" flexDirection="column" alignItems="center">
             <SidebarBtn url="/home">ALL COURSES</SidebarBtn>
-            <SidebarBtn>MY COURSES</SidebarBtn>
-            <SidebarBtn>MY WISHLIST</SidebarBtn>
+            <SidebarBtn url="/my-courses">MY COURSES</SidebarBtn>
+            <SidebarBtn url="/wishlist">MY WISHLIST</SidebarBtn>
             <SidebarBtn>MY TEACHINGS</SidebarBtn>
             <Button position="absolute" bottom="20px" leftIcon={<Icon icon="ri:logout-box-line" color="#000"/>} > LOGOUT</Button>
           </DrawerBody>
