@@ -19,23 +19,7 @@ export const CourseImage = styled(Box)(({url})=>({
     backgroundImage: `url('${url}')`,
     backgroundPosition: "center",
     backgroundSize: "cover",
-    backgroundColor:'red',
     borderRadius:'10px',
     margin:'0px auto 10px auto ',
 }))
 
-// export const CourseData = styled(Box)(({url})=>({
-//     width:'90%',
-//     '& .course-title':{
-//         fontSize:'2.2em',
-//         fontWeight:500
-//     },
-//     '& .course-author':{
-//         fontSize:'1.5em',
-//         color: '#636363',
-//     },
-//     '& .course-price':{
-//         fontSize:'3em',
-//         fontWeight:700
-//     }
-// }))
