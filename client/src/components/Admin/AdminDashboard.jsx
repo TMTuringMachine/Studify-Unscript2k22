@@ -98,7 +98,7 @@ function AdminDashboard() {
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>Update Teachers Details</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 

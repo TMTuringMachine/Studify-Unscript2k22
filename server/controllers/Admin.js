@@ -125,36 +125,19 @@ const declineRequest = async (req, res) => {
 };
 
 const updateTeacherDetails = async (req, res) => {
-  var {
-    teacherId,
-    name,
-    email,
-    phone,
-    password,
-    address,
-    age,
-    education,
-    image,
-    domain,
-    idProof,
-    rating,
-  } = req.body;
-  console.log(req.body);
+  var { teacherId, name, phone, address, age, education, image, domain } =
+    req.body.data;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    password = hashedPassword;
+    teacherId = req.body.id;
     const updatedTeacher = await User.findByIdAndUpdate(teacherId, {
       name,
-      email,
       phone,
-      password,
       address,
       age,
       education,
       image,
       domain,
-      idProof,
     });
     res
       .status(200)
