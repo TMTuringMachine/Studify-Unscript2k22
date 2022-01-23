@@ -31,7 +31,21 @@ const courseSchema = new mongoose.Schema({
   ],
   rating: {
     type: Number,
+    required: false,
+    default: 0
   },
+  rates: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "USER",
+      },
+      rate: {
+        type: Number,
+        default: 0
+      },
+    }
+  ],
   teacherId: {
     type: Schema.Types.ObjectId,
     ref: "USER",

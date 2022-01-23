@@ -3,6 +3,7 @@ import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import useRazorpay from "react-razorpay";
+// import { Rating } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import API from "../../utils/axios";
 import { initializeUser } from "../../hooks/useAuth";
@@ -25,12 +26,19 @@ const Course = () => {
   const props = useLocation();
   console.log(props);
   course = props?.state?.course;
+  const [rating, setRating] = useState(course.rating);
   const Razorpay = useRazorpay();
   const { user } = useSelector((state) => state.auth);
   const createOrder = async (amount) => {
     const res = await API.post("/user/buyCourse/createorder", { amount });
     return res;
   };
+
+  const handleRating = async (e, rate) => {
+    setRating(rate);
+    const res = await API.post("/course/rate", {rate: rating, course_id: course._id});
+    console.log(res);
+  }
 
   const handlePayment = async () => {
     let order = await createOrder(course.price * 100);
@@ -169,7 +177,7 @@ const Course = () => {
                     by {course.teacherName}
                   </Text>
                 </div>
-                <Rating value={5} readOnly size="large" />
+                <Rating defaultValue={rating} precision={0.5} size="large" onChange={handleRating}/>
                 <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
                   {" "}
                   &#8377; {course.price}

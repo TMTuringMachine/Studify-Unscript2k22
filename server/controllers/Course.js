@@ -105,12 +105,37 @@ const getAllCourses = async (req, res) => {
   }
 };
 
+const rateCourse = async (req, res) => {
+  const {rate, course_id} = req.body;
+  const user_id = req.user._id;
+  try {
+    const currentCourse = await Course.findById(course_id);
+    const rating = {
+      user: user_id,
+      rate
+    }
+    currentCourse.rates.push(rating);
+    let sumRating;
+    let ratesLen;
+    currentCourse.rates.map(r, idx => {
+      sumRating += r.rate;
+      ratesLen = idx
+    })
+    const averageRate = sumRating / (ratesLen + 1);
+    currentCourse.rating = averageRate;
+    const updatedCourse = await Course.findByIdAndUpdate(course_id, currentCourse, {new: true});
+    res.status(200).json({ok: true, updatedCourse});
+  } catch (error) {
+    res.status(200).json({ok: false, error});
+  }
+}
+
 module.exports = {
   createCourse,
   getCourse,
   getAllCourses,
   deleteCourse,
   updateCourse,
-  createDoubt
-  
+  createDoubt,
+  rateCourse  
 };

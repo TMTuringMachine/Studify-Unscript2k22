@@ -8,7 +8,8 @@ const {
   updateCourse,
   getCourse,
   getAllCourses,
-  createDoubt
+  createDoubt,
+  rateCourse
 } = require("../controllers/Course");
 
 router.post("/create", isAuthenticated, isTeacher, createCourse);
@@ -16,7 +17,8 @@ router.post("/delete", isAuthenticated, isTeacher, deleteCourse);
 router.post("/update", isAuthenticated, isTeacher, updateCourse);
 router.get("/get/:courseId", getCourse);
 router.get("/getAll", getAllCourses);
-router.post('/:id/doubt',isAuthenticated,createDoubt)
+router.post('/:id/doubt',isAuthenticated,createDoubt);
+router.post("/rate", isAuthenticated, rateCourse);
 
 
 module.exports = router;
