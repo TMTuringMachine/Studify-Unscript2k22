@@ -21,6 +21,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../hooks/useAuth";
 
+import {ReactComponent as Logo} from '../../assets/LOGO.svg';
+
 const SidebarBtn = ({ url, children }) => {
   const { pathname } = useLocation();
   const [selected, setSelectd] = useState(false);
@@ -58,14 +60,16 @@ const Header = () => {
   return (
     <HeaderContainer>
       <IconButton onClick={onOpen}>
-        <Icon icon="ci:menu-alt-03" fontSize={"2em"} color={"#fff"} />
+        <Icon icon="ic:round-arrow-forward-ios" fontSize={"2em"} color={"#6C63FF"} />
       </IconButton>
+      <Logo width="40px" height="40px" style={{marginLeft:'20px'}}/>
       <Input
         display="inline"
         width="70%"
         variant="filled"
         placeholder="Search Courses"
         _focus=""
+        marginLeft="30px"
       />
       <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
@@ -73,6 +77,7 @@ const Header = () => {
           height="96vh"
           margin="2vh 0px 2vh 1vw"
           borderRadius="10px"
+       
         >
           <DrawerCloseButton />
 

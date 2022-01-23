@@ -1,15 +1,27 @@
 import {Button,styled} from '@mui/material';
 
 export const IconButtonContainer = styled(Button)(({theme})=>({
-    width:'50px',
+    // width:'30px',
     height:'50px',
-    backgroundColor:"#6C63FF",
+    maxWidth:'20px',
+    padding:'0px !important',
+    // backgroundColor:"#6C63FF",
+    backgroundColor:'#fff',
     boxShadow:theme.shadows.shadow1,
     color:'black',
-    margin:'5px 20px',
+    // margin:'5px 20px',
+    position:'absolute',
+    left:'0px',
+    top:'calc(50vh - 25px)',
+    borderRadius:'0px 5px 5px 0px',
+    zIndex:99999,
 
     '&:hover':{
-      backgroundColor:"#6C63FF",
+      backgroundColor:"#fff",
+    },
+    '& svg':{
+      width:'25px',
+      height:'25px',
     }
 
   }))
