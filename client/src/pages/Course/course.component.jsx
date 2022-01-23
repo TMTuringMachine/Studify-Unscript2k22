@@ -452,7 +452,8 @@ const Course = () => {
                   defaultValue={rating}
                   precision={0.5}
                   size="large"
-                  onChange={handleRating}
+                  readOnly
+                  value={4}
                 />
                 <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
                   {" "}

@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse, addDoubt } from "../../hooks/useCourse";
 
+import { Rating } from "@mui/material";
 //https://res.cloudinary.com/dx1ye2bro/video/upload/v1642757644/code-showcase/r4kxpe1vyrtrc4bkhwir.mp4
 
 const Doubt = ({ doubt }) => {
@@ -122,9 +123,9 @@ const CourseVideos = () => {
     setSomeData(someData + 1);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(videos);
-  },[videos])
+  }, [videos]);
 
   return (
     <CoursesVideoPage>
@@ -207,7 +208,6 @@ const CourseVideos = () => {
                           setVideo={setCurrentVideo}
                           selected={currentVideo?._id === video?._id}
                           handleCheck={handleCheckbox}
-                          
                         />
                       ))}
                     </Box>
@@ -217,7 +217,11 @@ const CourseVideos = () => {
                       <Text fontSize="lg" fontWeight="600" margin="20px 0">
                         Instructor: {course?.teacherName}
                       </Text>
+
                       <Text color="#686868">{course?.description}</Text>
+                      <br />
+                      <Text>Rate this Course</Text>
+                      <Rating defaultValue={0} precision={0.5} size="large" />
                     </Box>
                   </TabPanel>
                 </TabPanels>
