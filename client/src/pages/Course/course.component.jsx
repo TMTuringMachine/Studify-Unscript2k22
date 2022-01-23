@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -55,8 +55,8 @@ const Course = () => {
           order_id: res.razorpay_order_id,
           razor_signature: res.razorpay_signature,
           user_id: user._id,
-          course_id: course._id
-        }
+          course_id: course._id,
+        };
         const response = await API.post("/user/razor/callback", payload);
         initializeUser(dispatch);
         console.log(response);
@@ -83,15 +83,15 @@ const Course = () => {
       alert(response.error.metadata.order_id);
     });
     rzp1.open();
-  }
+  };
   useEffect(() => {
     const enrolledCourses = user.myEnrolledCourses;
     // eslint-disable-next-line array-callback-return
-    enrolledCourses.map(c => {
-      if(c.courseID === course._id) setIsEnrolled(true);
-    })
-
-  }, [user])
+    console.log(enrolledCourses);
+    enrolledCourses.map((c) => {
+      if (c.courseID._id === course._id) setIsEnrolled(true);
+    });
+  }, [user]);
   const EnrololedButton = () => {
     return (
       <Button
@@ -103,8 +103,8 @@ const Course = () => {
       >
         Resume
       </Button>
-    )
-  }
+    );
+  };
   const NotEnrolledButton = () => {
     return (
       <>
@@ -115,21 +115,21 @@ const Course = () => {
           color="#fff"
           onClick={handlePayment}
         >
-        BUY NOW
-      </Button>
-      <Spacer />
-      <Button
-        width="48%"
-        variant="outline"
-        color="#6C63FF"
-        borderColor="#6C63FF"
-        borderWidth="2px"
-      >
-        ADD TO WISHLIST
-      </Button> 
-    </>
-    )
-  }
+          BUY NOW
+        </Button>
+        <Spacer />
+        <Button
+          width="48%"
+          variant="outline"
+          color="#6C63FF"
+          borderColor="#6C63FF"
+          borderWidth="2px"
+        >
+          ADD TO WISHLIST
+        </Button>
+      </>
+    );
+  };
   // };
   const currUser = useSelector((store) => store.auth.user);
   const navigate = useNavigate();
@@ -186,8 +186,8 @@ const Course = () => {
               )}
             </Flex>
           </Box>
-          <Flex width="95%" margin={["20px auto 0px auto","0 auto" ]}>
-            {isEnrolled? <EnrololedButton /> : <NotEnrolledButton />}
+          <Flex width="95%" margin={["20px auto 0px auto", "0 auto"]}>
+            {isEnrolled ? <EnrololedButton /> : <NotEnrolledButton />}
             {/* <Button
               width="48%"
               backgroundColor="#6C63FF"

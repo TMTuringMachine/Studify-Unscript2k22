@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Input } from "@chakra-ui/input";
 import { Flex } from "@chakra-ui/layout";
@@ -7,6 +7,16 @@ import { Button } from "@chakra-ui/button";
 import { useDispatch } from "react-redux";
 import { verifyTeacherHook } from "../../hooks/useCourse";
 import CreateCourseForm from "./createCourseForm";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/hooks";
 const CreateCourse = () => {
   const user = useSelector((store) => store.auth.user);
   const [data, setData] = useState({
@@ -31,11 +41,18 @@ const CreateCourse = () => {
   const onChangeHanler = (e) => {
     setData({ ...data, domain: e.target.value });
   };
+  const [open, setOpen] = useState(true);
+
+  const toggleModal = () => {
+    setOpen(!open);
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log(data);
     dispatch(verifyTeacherHook(dispatch, data));
   };
+
+  const { onClose } = useDisclosure();
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column">
       {!user.isTeacher && !user.isPending ? (
@@ -88,10 +105,23 @@ const CreateCourse = () => {
       ) : (
         <Box>
           {!user.isTeacher && user.isPending ? (
-            <Box>We have recieved your request, Hang in tight</Box>
+            <Box fontSize="2rem" fontWeight="800" textAlign="center">
+              We have recieved your request, Hang in tight
+            </Box>
           ) : (
             <Box>
-              you can create courses now
+              <Modal isOpen={open} onClose={toggleModal}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Congratulations!!!! 🎉🎉</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    You can now Add Courses and spread your learning. Best of
+                    luck for your Journey!
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+              <br />
               <CreateCourseForm />
             </Box>
           )}
