@@ -3,9 +3,11 @@ import React from "react";
 import API from "../utils/axios";
 import useRazorpay, { RazorpayOptions } from "react-razorpay";
 import { useSelector } from "react-redux";
+import { useAlert } from 'react-alert'
 
 const Test = () => {
   // const [user, ]
+  const alert = useAlert()
   const { user } = useSelector((state) => state.auth);
   console.log(user);
   const Razorpay = useRazorpay();
@@ -84,10 +86,15 @@ const Test = () => {
     //     e.preventDefault();
     // }
   };
+
+  const handleAlert = () => {
+    alert.show('Oh look, an alert!')
+  }
   return (
     <div>
       <Button onClick={showWidget}>UPLOAD FILES</Button>
       <Button onClick={handlePayment}>Buy Course</Button>
+      <Button onClick={handleAlert}>SHOW ALERT</Button>
     </div>
   );
 };

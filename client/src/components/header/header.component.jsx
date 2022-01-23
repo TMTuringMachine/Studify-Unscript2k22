@@ -98,8 +98,9 @@ const Header = () => {
           <DrawerBody display="flex" flexDirection="column" alignItems="center">
             <SidebarBtn url="/home">ALL COURSES</SidebarBtn>
             <SidebarBtn url="/my-courses">MY COURSES</SidebarBtn>
-            <SidebarBtn url="/wishlist">MY WISHLIST</SidebarBtn>
-            <SidebarBtn>MY TEACHINGS</SidebarBtn>
+            <SidebarBtn url="/dashboard">MY PROFILE</SidebarBtn>
+            <SidebarBtn url="/createCourse">CREATE COURSE</SidebarBtn>
+            <SidebarBtn url="/myTeachings">MY TEACHINGS</SidebarBtn>
             <Button
               position="absolute"
               bottom="20px"

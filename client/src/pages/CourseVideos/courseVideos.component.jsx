@@ -35,7 +35,7 @@ const Doubt = ({ doubt }) => {
   );
 };
 
-const VideoOverview = ({ video, selected, setVideo }) => {
+const VideoOverview = ({ video, selected, setVideo, handleCheck }) => {
   const handleClick = () => {
     setVideo(video);
   };
@@ -51,7 +51,14 @@ const VideoOverview = ({ video, selected, setVideo }) => {
       onClick={handleClick}
       marginBottom="5px"
     >
-      <Checkbox height="fit-content" borderColor="#000" />
+      <Checkbox
+        height="fit-content"
+        borderColor="#000"
+        checked={video?.isWatched}
+        onChange={(e) => {
+          handleCheck(e, video?._id);
+        }}
+      />
       <Box marginLeft="10px">
         <Text fontWeight="200" lineHeight="100%">
           {video.title}
@@ -63,20 +70,7 @@ const VideoOverview = ({ video, selected, setVideo }) => {
 
 const CourseVideos = () => {
   const [course, setCourse] = useState(null);
-  const [videos, setVideos] = useState([
-    {
-      video:
-        "https://res.cloudinary.com/dx1ye2bro/video/upload/v1642757644/code-showcase/r4kxpe1vyrtrc4bkhwir.mp4",
-      id: 1,
-      title: "this is first video",
-    },
-    {
-      video:
-        "https://res.cloudinary.com/dx1ye2bro/video/upload/v1642778878/code-showcase/g6ijh9yfo1wyc7xfew0q.mp4",
-      id: 2,
-      title: "this is second video",
-    },
-  ]);
+  const [videos, setVideos] = useState([]);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const [currentVideo, setCurrentVideo] = useState();
@@ -86,6 +80,26 @@ const CourseVideos = () => {
   const [someData, setSomeData] = useState(0);
   const { user } = useSelector((state) => state.auth);
 
+  const handleCheckbox = (e, id) => {
+    console.log(e.target.checked, "here", id);
+    setVideos((videos) => {
+      const newVideos = videos.map((vd) => {
+        if (vd?._id === id) {
+          vd.isWatched = e.target.checked;
+        }
+        return vd;
+      });
+      console.log(newVideos);
+      return newVideos;
+    });
+    // videos.forEach(vd => {
+    //     if(vd?._id === id){
+    //         console.log(vd);
+    //         vd.isWatched = e.target.checked
+
+    //     }
+    // })
+  };
   useEffect(() => {
     const id = pathname.slice(14);
     getCourse(dispatch, id).then((res) => {
@@ -107,6 +121,10 @@ const CourseVideos = () => {
     setDoubtData({ text: "" });
     setSomeData(someData + 1);
   };
+
+  useEffect(()=>{
+    console.log(videos);
+  },[videos])
 
   return (
     <CoursesVideoPage>
@@ -168,9 +186,12 @@ const CourseVideos = () => {
                       padding={["10px", null, null, "20px"]}
                     >
                       <Text fontSize="xl">Recent doubts:</Text>
-                      {course?.doubts.map((dt) => (
-                        <Doubt doubt={dt} key={dt} />
-                      ))}
+                      {course?.doubts
+                        .slice()
+                        .reverse()
+                        .map((dt) => (
+                          <Doubt doubt={dt} key={dt} />
+                        ))}
                       {/* <Doubt />
                       <Doubt />
                       <Doubt />
@@ -185,6 +206,8 @@ const CourseVideos = () => {
                           video={video}
                           setVideo={setCurrentVideo}
                           selected={currentVideo?._id === video?._id}
+                          handleCheck={handleCheckbox}
+                          
                         />
                       ))}
                     </Box>
@@ -218,6 +241,7 @@ const CourseVideos = () => {
                     video={video}
                     setVideo={setCurrentVideo}
                     selected={currentVideo?._id === video?._id}
+                    handleCheck={handleCheckbox}
                   />
                 ))}
               </Box>

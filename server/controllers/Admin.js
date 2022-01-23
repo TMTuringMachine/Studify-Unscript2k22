@@ -125,36 +125,19 @@ const declineRequest = async (req, res) => {
 };
 
 const updateTeacherDetails = async (req, res) => {
-  var {
-    teacherId,
-    name,
-    email,
-    phone,
-    password,
-    address,
-    age,
-    education,
-    image,
-    domain,
-    idProof,
-    rating,
-  } = req.body;
-  console.log(req.body);
+  var { teacherId, name, phone, address, age, education, image, domain } =
+    req.body.data;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    password = hashedPassword;
+    teacherId = req.body.id;
     const updatedTeacher = await User.findByIdAndUpdate(teacherId, {
       name,
-      email,
       phone,
-      password,
       address,
       age,
       education,
       image,
       domain,
-      idProof,
     });
     res
       .status(200)
@@ -188,7 +171,6 @@ const addCourse = async (req, res) => {
     content,
     teacherId,
     teacherName,
-    doubts,
   } = req.body;
 
   try {
@@ -205,7 +187,6 @@ const addCourse = async (req, res) => {
         content,
         teacherId,
         teacherName,
-        doubts,
       });
       let NewCourse = await newCourse.save();
       return res
@@ -219,7 +200,6 @@ const addCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
   const {
-    courseId,
     title,
     description,
     thumbnail,
@@ -227,7 +207,7 @@ const updateCourse = async (req, res) => {
     content,
     teacherId,
     teacherName,
-    doubts,
+    courseId,
   } = req.body;
   try {
     const updatedCourse = await Course.findByIdAndUpdate(courseId, {
@@ -238,7 +218,6 @@ const updateCourse = async (req, res) => {
       content,
       teacherId,
       teacherName,
-      doubts,
     });
     return res
       .status(200)

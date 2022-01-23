@@ -20,9 +20,8 @@ export const SignupHandler = async (formData, dispatch, navigate) => {
     const res = await axios.post("/user/signup", body, config);
     dispatch(registerSuccess());
     navigate("/login");
-    console.log(res);
   } catch (e) {
-    console.log(e);
+    return e;
   }
 };
 

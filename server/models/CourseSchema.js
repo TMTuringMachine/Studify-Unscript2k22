@@ -27,6 +27,11 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      isWatched:{
+        type:Boolean,
+        default:false,
+        required:true
+      }
     },
   ],
   rating: {

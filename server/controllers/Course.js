@@ -31,7 +31,7 @@ const createCourse = async (req, res) => {
 
 const deleteCourse = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  console.log(courseId);
   try {
     const Delete = await Course.findByIdAndDelete(id);
     console.log(Delete);
