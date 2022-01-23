@@ -111,7 +111,7 @@ export const logout = (dispatch) => {
   if (localStorage.getItem("userToken")) {
     localStorage.removeItem("userToken");
   } else {
-    localStorage.removeItem("AdminToken");
+    localStorage.removeItem("adminToken");
   }
   dispatch(logoutSuccess());
 };

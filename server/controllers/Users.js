@@ -3,6 +3,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const Razorpay = require("razorpay");
+const Course = require("../models/CourseSchema");
 let crypto;
 try {
   crypto = require("crypto");
@@ -98,6 +99,21 @@ const uploadData = async (req, res) => {
   );
   res.status(200).send(user);
 };
+
+
+const updateUserProgress = async(req,res) => {
+  const {id} = req.params;
+  const {content} =  req.body;
+
+  const user = await User.findOne({email:req.user.email}).populate('myEnrolledCourses.courseID');
+
+  console.log(user.enrolledCourses.find(i => i._id === id));
+
+  res.send(200).send("test");
+
+
+}
+
 
 const uploadTeacherData = async (req, res) => {
   const { domain, idProof } = req.body;
@@ -197,6 +213,16 @@ const verifyPayments = async (req, res) => {
   }
 };
 
+const myTeachings = async (req, res) => {
+  const id = req.user._id;
+  try {
+    let courses = await Course.find({ teacherId: id });
+    return res.status(200).json({ ok: true, courses });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 module.exports = {
   signup,
   login,
@@ -206,4 +232,5 @@ module.exports = {
   buyCourse,
   razorCallback,
   verifyPayments,
+  myTeachings,
 };
