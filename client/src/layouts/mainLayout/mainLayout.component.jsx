@@ -16,13 +16,17 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  //   React.useEffect(() => {
-  //     if (!isLoggedIn) {
-  //       navigate("/sign-in");
-  //     } else {
-  //       navigate(pathname);
-  //     }
-  //   }, [isLoggedIn]);
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/sign-in");
+    } else {
+      if (pathname === "/") {
+        navigate("/home");
+      } else {
+        navigate(pathname);
+      }
+    }
+  }, [isLoggedIn]);
 
   return (
     <Page>

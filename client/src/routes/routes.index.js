@@ -79,7 +79,7 @@ export default function Router() {
           element: <MyWishlist />,
         },
         {
-          path:"/course/:id/learn",
+          path:"/course/learn/:id",
           element:<CourseVideos/>
         },{
           path: "/createCourse",

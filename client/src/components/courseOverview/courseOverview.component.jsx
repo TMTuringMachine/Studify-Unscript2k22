@@ -6,7 +6,7 @@ import {
   CourseData,
 } from "./courseOverview.styles";
 import { Rating } from "@mui/material";
-import { Button } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const course = {
@@ -27,7 +27,7 @@ const CourseOverview = (props) => {
         <div className="course-name">{props.course.title}</div>
         <div className="course-author">{props.course.teacherName}</div>
         <Rating value={5} readOnly />
-        <div>Price:{props.course.price}</div>
+        <Text fontWeight="600" fontSize="lg">&#8377; {props.course.price}</Text>
         <Button
           width="100%"
           size="sm"

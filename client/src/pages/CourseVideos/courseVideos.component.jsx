@@ -13,19 +13,23 @@ import {
 } from "@chakra-ui/react";
 // import { Icon } from "@iconify/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCourse, addDoubt } from "../../hooks/useCourse";
+
 //https://res.cloudinary.com/dx1ye2bro/video/upload/v1642757644/code-showcase/r4kxpe1vyrtrc4bkhwir.mp4
 
 const Doubt = ({ doubt }) => {
   return (
     <Flex borderBottom="1px solid #686868" padding="10px 0">
       <Avatar
-        name="Dan Abrahmov"
-        src="https://bit.ly/dan-abramov"
+        name={doubt?.userId?.name}
+        src={doubt?.userId?.image}
         marginRight="10px"
       />
       <Box>
-        <Text fontWeight="600">username</Text>
-        <Text>How to make a billion dollars?</Text>
+        <Text fontWeight="600">{doubt?.userId?.name}</Text>
+        <Text>{doubt?.text}</Text>
       </Box>
     </Flex>
   );
@@ -52,23 +56,13 @@ const VideoOverview = ({ video, selected, setVideo }) => {
         <Text fontWeight="200" lineHeight="100%">
           {video.title}
         </Text>
-        {/* <Flex alignItems="center" marginTop="3px">
-          <Icon
-            icon="ant-design:play-circle-filled"
-            color="#000"
-            height="15px"
-            width="15px"
-          />
-          <Text fontWeight="200" fontSize="sm" marginLeft="5px">
-            6 min
-          </Text>
-        </Flex> */}
       </Box>
     </Flex>
   );
 };
 
 const CourseVideos = () => {
+  const [course, setCourse] = useState(null);
   const [videos, setVideos] = useState([
     {
       video:
@@ -83,28 +77,58 @@ const CourseVideos = () => {
       title: "this is second video",
     },
   ]);
-  const [currentVideo, setCurrentVideo] = useState(videos[0]);
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const [currentVideo, setCurrentVideo] = useState();
+  const [doubtData, setDoubtData] = useState({
+    text: "",
+  });
+  const [someData, setSomeData] = useState(0);
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const id = pathname.slice(14);
+    getCourse(dispatch, id).then((res) => {
+      console.log(res, "this is course");
+      setCourse(res);
+      setCurrentVideo(res.content[0]);
+      setVideos(res.content);
+    });
+  }, [pathname, someData]);
+
+  const handleDoubt = () => {
+    if (doubtData.text.length === 0) return;
+    const doubt = {
+      userId: user._id,
+      text: doubtData.text,
+    };
+
+    addDoubt(doubt, course._id);
+    setDoubtData({ text: "" });
+    setSomeData(someData + 1);
+  };
+
   return (
     <CoursesVideoPage>
       <Flex width="100%" flex="1">
         <Box flex="1" height="calc(100vh - 60px)" overflowY="scroll">
-          <Box width="100%" height={["30vh","40vh","50vh","60vh","70vh"]}>
+          <Box width="100%" height={["30vh", "40vh", "50vh", "60vh", "70vh"]}>
             <ReactPlayer
-              url={currentVideo.video}
+              url={currentVideo?.videoURL}
               controls
               width="100%"
               height="100%"
             />
           </Box>
-          <Box padding={["5px",null,null,"10px 20px 100px 20px"]}>
+          <Box padding={["5px", null, null, "10px 20px 100px 20px"]}>
             <Text
               fontWeight="600"
               borderBottom="1px solid #636363"
               padding="10px"
             >
-              {`${currentVideo.id}. ${currentVideo.title}`}
+              {`${currentVideo?._id}. ${currentVideo?.title}`}
             </Text>
-            <Box padding={["5px",null,null,"10px"]}>
+            <Box padding={["5px", null, null, "10px"]}>
               <Tabs>
                 <TabList>
                   <Tab _focus={{ outline: "none" }}>
@@ -123,12 +147,17 @@ const CourseVideos = () => {
                       placeholder="Ask your doubt."
                       borderColor="#6C63FF"
                       margin="20px 0px"
+                      onChange={(e) => {
+                        setDoubtData({ text: e.target.value });
+                      }}
+                      value={doubtData.text}
                     />
                     <Button
                       backgroundColor="#6C63FF"
                       color="#fff"
                       _hover=""
                       size="sm"
+                      onClick={handleDoubt}
                     >
                       ASK
                     </Button>
@@ -136,13 +165,16 @@ const CourseVideos = () => {
                     <Box
                       margin="20px 0"
                       backgroundColor="#e4e4e4"
-                      padding={["10px",null,null,"20px"]}
+                      padding={["10px", null, null, "20px"]}
                     >
                       <Text fontSize="xl">Recent doubts:</Text>
+                      {course?.doubts.map((dt) => (
+                        <Doubt doubt={dt} key={dt} />
+                      ))}
+                      {/* <Doubt />
                       <Doubt />
                       <Doubt />
-                      <Doubt />
-                      <Doubt />
+                      <Doubt /> */}
                     </Box>
                   </TabPanel>
                   <TabPanel padding="0px">
@@ -152,7 +184,7 @@ const CourseVideos = () => {
                           key={index}
                           video={video}
                           setVideo={setCurrentVideo}
-                          selected={currentVideo.id === video.id}
+                          selected={currentVideo?._id === video?._id}
                         />
                       ))}
                     </Box>
@@ -160,19 +192,9 @@ const CourseVideos = () => {
                   <TabPanel padding="0px">
                     <Box>
                       <Text fontSize="lg" fontWeight="600" margin="20px 0">
-                        Author: Dr ABC{" "}
+                        Instructor: {course?.teacherName}
                       </Text>
-                      <Text color="#686868">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
-                      </Text>
+                      <Text color="#686868">{course?.description}</Text>
                     </Box>
                   </TabPanel>
                 </TabPanels>
@@ -195,7 +217,7 @@ const CourseVideos = () => {
                     key={index}
                     video={video}
                     setVideo={setCurrentVideo}
-                    selected={currentVideo.id === video.id}
+                    selected={currentVideo?._id === video?._id}
                   />
                 ))}
               </Box>
