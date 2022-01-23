@@ -54,17 +54,16 @@ export const updateCourse = async (data) => {
   console.log(res);
 };
 
-
-export const addDoubt = async (data,courseId) => {
+export const addDoubt = async (data, courseId) => {
   const body = JSON.stringify(data);
   const config = {
     headers: {
       "Content-type": "application/json",
     },
   };
-  const response = await axios.post(`/course/${courseId}/doubt`,body,config);
+  const response = await axios.post(`/course/${courseId}/doubt`, body, config);
   console.log(response);
-}
+};
 export const deleteCourse = async (courseId, navigate) => {
   try {
     const res = await axios.get(`/course/delete/${courseId}`);
