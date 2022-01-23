@@ -8,7 +8,8 @@ const {
   uploadTeacherData,
   buyCourse,
   razorCallback,
-  verifyPayments
+  verifyPayments,
+  myTeachings
 } = require("../controllers/Users");
 const { isAuthenticated } = require("../middlewares/Auth");
 
@@ -31,5 +32,6 @@ router.get("/jwtVerify", jwtVerify);
 router.get("/test", isAuthenticated);
 router.post("/uploadData", isAuthenticated, uploadData);
 router.post("/uploadTeacherData", isAuthenticated, uploadTeacherData);
+router.get('/myTeachings',isAuthenticated,myTeachings)
 
 module.exports = router;
