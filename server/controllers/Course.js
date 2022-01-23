@@ -66,14 +66,35 @@ const updateCourse = async (req, res) => {
 };
 
 const getCourse = async (req, res) => {
-  const { courseId } = req.body;
+  // const { courseId } = req.body;
+  const {courseId} = req.params;
   try {
-    const course = await Course.findById(courseId);
+    const course = await Course.findById(courseId).populate('doubts.userId');
     return res.status(200).json({ ok: true, course });
   } catch (error) {
     return res.status(500).json({ ok: false, error });
   }
 };
+
+
+const createDoubt = async (req,res)=> {
+  const {id} = req.params;
+  const {text,userId} = req.body;
+  try{
+    const course = await Course.findById(id);
+    const doubt = {
+      userId,
+      text
+    }
+    course.doubts.push(doubt);
+    await course.save()
+
+    return res.status(200).json({ok:true,message:"Doubt added to course",course})
+  }catch(err){
+    return res.status(500).json({ok:false,error})
+  }
+
+}
 
 const getAllCourses = async (req, res) => {
   try {
@@ -90,4 +111,6 @@ module.exports = {
   getAllCourses,
   deleteCourse,
   updateCourse,
+  createDoubt
+  
 };

@@ -32,12 +32,52 @@ export default function Router() {
       element: <SignIn />,
     },
     {
+      path: "/landing",
+      element: <Landing />
+    },
+    {
       path: "/login",
       element: <Login />,
     },
     {
-      path: "/admin/login",
+      path: "/adminLogin",
       element: <AdminLogin />,
+    },
+    {
+      path: "/adminDashboard",
+      element: <AdminDashboard />,
+    },
+    {
+      path: "/adminAddCourse",
+      element: <AddCourse />,
+    },
+    {
+      path: "/adminUpdateCourse",
+      element: <UpdateCourse />,
+    },
+    {
+      path: "/adminRemoveCourse",
+      element: <RemoveCourse />,
+    },
+    {
+      path: "/adminUpdateTeacher",
+      element: <UpdateTeacher />,
+    },
+    {
+      path: "/adminAllCourses",
+      element: <AllCourses />,
+    },
+    {
+      path: "/adminAllTeachers",
+      element: <AllTeachers />,
+    },
+    {
+      path: "/adminRequests",
+      element: <Requests />,
+    },
+    {
+      path: "/adminRemoveTechers",
+      element: <RemoveTeachers />,
     },
     {
       path: "/",
@@ -79,7 +119,7 @@ export default function Router() {
           element: <MyWishlist />,
         },
         {
-          path:"/course/:id/learn",
+          path:"/course/learn/:id",
           element:<CourseVideos/>
         },{
           path: "/createCourse",
@@ -136,3 +176,35 @@ const CreateProfile = Loadable(
 const CreateCourse = Loadable(
   lazy(() => import("../components/Teachings/createCourse.component"))
 );
+
+const AdminDashboard = Loadable(
+  lazy(() => import("../components/Admin/AdminDashboard"))
+);
+const AddCourse = Loadable(
+  lazy(() => import("../components/Admin/AddCourse"))
+);
+const UpdateCourse = Loadable(
+  lazy(() => import("../components/Admin/UpdateCourse"))
+);
+const RemoveCourse = Loadable(
+  lazy(() => import("../components/Admin/RemoveCourse"))
+);
+const UpdateTeacher = Loadable(
+  lazy(() => import("../components/Admin/UpdateTeacher"))
+);
+const AllCourses = Loadable(
+  lazy(() => import("../components/Admin/AllCourses"))
+);
+const AllTeachers = Loadable(
+  lazy(() => import("../components/Admin/AllTeachers"))
+);
+const Requests = Loadable(
+  lazy(() => import("../components/Admin/Requests"))
+);
+const RemoveTeachers = Loadable(
+  lazy(() => import("../components/Admin/RemoveTeachers"))
+);
+
+const Landing = Loadable(
+  lazy(() => import("../pages/Landing/landing.component"))
+)
