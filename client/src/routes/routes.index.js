@@ -32,8 +32,8 @@ export default function Router() {
       element: <SignIn />,
     },
     {
-      path: "/",
-      // element: <Landing />
+      path: "/landing",
+      element: <Landing />
     },
     {
       path: "/login",
@@ -204,3 +204,7 @@ const Requests = Loadable(
 const RemoveTeachers = Loadable(
   lazy(() => import("../components/Admin/RemoveTeachers"))
 );
+
+const Landing = Loadable(
+  lazy(() => import("../pages/Landing/landing.component"))
+)

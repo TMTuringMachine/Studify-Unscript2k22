@@ -18,7 +18,7 @@ const MainLayout = () => {
 
   React.useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/sign-in");
+      navigate("/landing");
     } else {
       if (pathname === "/") {
         navigate("/home");
