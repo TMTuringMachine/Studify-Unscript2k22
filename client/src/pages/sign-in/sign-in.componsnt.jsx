@@ -6,6 +6,7 @@ import { Input } from "@chakra-ui/input";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "@chakra-ui/react";
+import { useAlert } from 'react-alert';
 
 import { SignupHandler } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
@@ -24,6 +25,9 @@ const SignIn = () => {
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  const alert = useAlert()
+
+  
   const onSubmitHandler = (e) => {
     e.preventDefault();
     SignupHandler(data, dispatch, navigate);

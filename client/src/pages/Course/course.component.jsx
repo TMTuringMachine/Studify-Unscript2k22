@@ -99,7 +99,7 @@ const Course = () => {
         backgroundColor="#6C63FF"
         _hover=""
         color="#fff"
-        onClick={handlePayment}
+        onClick={()=>{navigate(`/course/learn/${course._id}`)}}
       >
         Resume
       </Button>

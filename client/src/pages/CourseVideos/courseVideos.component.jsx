@@ -168,7 +168,7 @@ const CourseVideos = () => {
                       padding={["10px", null, null, "20px"]}
                     >
                       <Text fontSize="xl">Recent doubts:</Text>
-                      {course?.doubts.map((dt) => (
+                      {course?.doubts.slice().reverse().map((dt) => (
                         <Doubt doubt={dt} key={dt} />
                       ))}
                       {/* <Doubt />
