@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import { CheckIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 // Replace test data with your own
 const features = Array.apply(null, Array(8)).map(function (x, i) {
@@ -49,13 +50,20 @@ function AdminDashboard() {
   const removeTechers = () => {
     navigate("/adminRemoveTechers");
   };
+
+  const { user } = useSelector((state) => state.auth);
+
+  // const adminToken = localStorage.getItem("adminToken");
+  // useEffect(() => {
+  //   if (!adminToken) navigate("/adminLogin");
+  // }, [adminToken]);
   return (
     <>
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
           <Heading fontSize={"3xl"}>Admin Dashboard</Heading>
           <Text color={"gray.600"} fontSize={"xl"}>
-            Welcome! Name
+            Welcome {user.name}!
           </Text>
         </Stack>
 
