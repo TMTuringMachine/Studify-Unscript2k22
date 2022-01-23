@@ -100,6 +100,21 @@ const uploadData = async (req, res) => {
   res.status(200).send(user);
 };
 
+
+const updateUserProgress = async(req,res) => {
+  const {id} = req.params;
+  const {content} =  req.body;
+
+  const user = await User.findOne({email:req.user.email}).populate('myEnrolledCourses.courseID');
+
+  console.log(user.enrolledCourses.find(i => i._id === id));
+
+  res.send(200).send("test");
+
+
+}
+
+
 const uploadTeacherData = async (req, res) => {
   const { domain, idProof } = req.body;
   const data = await User.findOneAndUpdate(

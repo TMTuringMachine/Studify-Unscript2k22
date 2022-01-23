@@ -9,7 +9,8 @@ const {
   buyCourse,
   razorCallback,
   verifyPayments,
-  myTeachings
+  myTeachings,
+  updateUserProgress
 } = require("../controllers/Users");
 const { isAuthenticated } = require("../middlewares/Auth");
 
@@ -33,5 +34,6 @@ router.get("/test", isAuthenticated);
 router.post("/uploadData", isAuthenticated, uploadData);
 router.post("/uploadTeacherData", isAuthenticated, uploadTeacherData);
 router.get('/myTeachings',isAuthenticated,myTeachings)
+router.post("/progress/:id",isAuthenticated, updateUserProgress)
 
 module.exports = router;

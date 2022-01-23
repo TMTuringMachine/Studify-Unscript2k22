@@ -171,7 +171,6 @@ const addCourse = async (req, res) => {
     content,
     teacherId,
     teacherName,
-    doubts,
   } = req.body;
 
   try {
@@ -188,7 +187,6 @@ const addCourse = async (req, res) => {
         content,
         teacherId,
         teacherName,
-        doubts,
       });
       let NewCourse = await newCourse.save();
       return res
@@ -202,7 +200,6 @@ const addCourse = async (req, res) => {
 
 const updateCourse = async (req, res) => {
   const {
-    courseId,
     title,
     description,
     thumbnail,
@@ -210,7 +207,7 @@ const updateCourse = async (req, res) => {
     content,
     teacherId,
     teacherName,
-    doubts,
+    courseId,
   } = req.body;
   try {
     const updatedCourse = await Course.findByIdAndUpdate(courseId, {
@@ -221,7 +218,6 @@ const updateCourse = async (req, res) => {
       content,
       teacherId,
       teacherName,
-      doubts,
     });
     return res
       .status(200)

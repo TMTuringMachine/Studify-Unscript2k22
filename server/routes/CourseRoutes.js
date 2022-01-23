@@ -16,7 +16,7 @@ router.post("/delete", isAuthenticated, isTeacher, deleteCourse);
 router.post("/update", isAuthenticated, isTeacher, updateCourse);
 router.get("/get/:courseId", getCourse);
 router.get("/getAll", getAllCourses);
-router.post('/:id/doubt',isAuthenticated,createDoubt)
+router.post('/:id/doubt',isAuthenticated,createDoubt);
 
 
 module.exports = router;
