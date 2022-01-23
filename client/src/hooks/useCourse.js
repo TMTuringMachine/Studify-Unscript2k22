@@ -65,3 +65,12 @@ export const addDoubt = async (data,courseId) => {
   const response = await axios.post(`/course/${courseId}/doubt`,body,config);
   console.log(response);
 }
+export const deleteCourse = async (courseId, navigate) => {
+  try {
+    const res = await axios.get(`/course/delete/${courseId}`);
+    console.log(res);
+    navigate("/home");
+  } catch (e) {
+    console.log(e);
+  }
+};

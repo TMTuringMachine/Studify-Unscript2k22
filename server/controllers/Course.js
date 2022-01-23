@@ -30,9 +30,11 @@ const createCourse = async (req, res) => {
 };
 
 const deleteCourse = async (req, res) => {
-  const { courseId } = req.body;
+  const { id } = req.params;
+  console.log(id);
   try {
-    const Delete = await Course.findByIdAndDelete(courseId);
+    const Delete = await Course.findByIdAndDelete(id);
+    console.log(Delete);
     return res
       .status(200)
       .json({ ok: true, message: "Course Deleted by Teacher", Delete });

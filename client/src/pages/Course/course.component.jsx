@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { SimpleGrid, Box, Text, Button, Flex, Spacer } from "@chakra-ui/react";
 import { Rating } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useRazorpay from "react-razorpay";
 import { useSelector, useDispatch } from "react-redux";
 import API from "../../utils/axios";
 import { initializeUser } from "../../hooks/useAuth";
 
 import { CourseContainer, CourseImage } from "./course.styles";
+import { deleteCourse } from "../../hooks/useCourse";
 
 let course = {
   thumbnail:
@@ -19,6 +20,7 @@ let course = {
 };
 
 const Course = () => {
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const dispatch = useDispatch();
   const props = useLocation();
   console.log(props);
@@ -53,8 +55,8 @@ const Course = () => {
           order_id: res.razorpay_order_id,
           razor_signature: res.razorpay_signature,
           user_id: user._id,
-          course_id: "faksdkfjd",
-        };
+          course_id: course._id
+        }
         const response = await API.post("/user/razor/callback", payload);
         initializeUser(dispatch);
         console.log(response);
@@ -81,7 +83,56 @@ const Course = () => {
       alert(response.error.metadata.order_id);
     });
     rzp1.open();
-  };
+  }
+  useEffect(() => {
+    const enrolledCourses = user.myEnrolledCourses;
+    // eslint-disable-next-line array-callback-return
+    enrolledCourses.map(c => {
+      if(c.courseID === course._id) setIsEnrolled(true);
+    })
+
+  }, [user])
+  const EnrololedButton = () => {
+    return (
+      <Button
+        width="48%"
+        backgroundColor="#6C63FF"
+        _hover=""
+        color="#fff"
+        onClick={handlePayment}
+      >
+        Resume
+      </Button>
+    )
+  }
+  const NotEnrolledButton = () => {
+    return (
+      <>
+        <Button
+          width="48%"
+          backgroundColor="#6C63FF"
+          _hover=""
+          color="#fff"
+          onClick={handlePayment}
+        >
+        BUY NOW
+      </Button>
+      <Spacer />
+      <Button
+        width="48%"
+        variant="outline"
+        color="#6C63FF"
+        borderColor="#6C63FF"
+        borderWidth="2px"
+      >
+        ADD TO WISHLIST
+      </Button> 
+    </>
+    )
+  }
+  // };
+  const currUser = useSelector((store) => store.auth.user);
+  const navigate = useNavigate();
   return (
     <CourseContainer
       padding={[
@@ -104,26 +155,40 @@ const Course = () => {
             flexDirection="column"
             justifyContent="space-between"
           >
-            <div>
-              <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
-                {course.title}
-              </Text>
-              <Text
-                margin={["0 0 10px 0", null]}
-                fontSize={["md", "lg", "lg", "xl", "xl"]}
-                color="#6d6d6d"
-              >
-                by {course.teacherName}
-              </Text>
-            </div>
-            <Rating value={5} readOnly size="large" />
-            <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
-              {" "}
-              &#8377; {course.price}
-            </Text>
+            <Flex justifyContent="space-between" alignItems="flex-start">
+              <Box>
+                <div>
+                  <Text fontSize={["2xl", "2xl", "3xl", "3xl", "4xl"]}>
+                    {course.title}
+                  </Text>
+                  <Text
+                    margin={["0 0 10px 0", null]}
+                    fontSize={["md", "lg", "lg", "xl", "xl"]}
+                    color="#6d6d6d"
+                  >
+                    by {course.teacherName}
+                  </Text>
+                </div>
+                <Rating value={5} readOnly size="large" />
+                <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
+                  {" "}
+                  &#8377; {course.price}
+                </Text>
+              </Box>
+              {course.teacherId === currUser._id && (
+                <Button
+                  onClick={() => deleteCourse(course._id, navigate)}
+                  colorScheme="red"
+                  variant="outline"
+                >
+                  Delete this Course
+                </Button>
+              )}
+            </Flex>
           </Box>
-          <Flex width="95%" margin={["20px auto 0px auto", "0 auto"]}>
-            <Button
+          <Flex width="95%" margin={["20px auto 0px auto","0 auto" ]}>
+            {isEnrolled? <EnrololedButton /> : <NotEnrolledButton />}
+            {/* <Button
               width="48%"
               backgroundColor="#6C63FF"
               _hover=""
@@ -141,7 +206,7 @@ const Course = () => {
               borderWidth="2px"
             >
               ADD TO WISHLIST
-            </Button>
+            </Button> */}
           </Flex>
         </Box>
       </SimpleGrid>

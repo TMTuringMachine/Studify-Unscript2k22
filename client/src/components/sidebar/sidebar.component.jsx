@@ -36,6 +36,7 @@ const SidebarBtn = ({ url, children }) => {
 const Sidebar = ({ toggleScreenState }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     profilePic: "https://www.nawpic.com/media/2020/levi-ackerman-nawpic-38.jpg",
@@ -47,7 +48,10 @@ const Sidebar = ({ toggleScreenState }) => {
     toggleScreenState();
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <SidebarContainer theme={theme}>
@@ -80,7 +84,7 @@ const Sidebar = ({ toggleScreenState }) => {
                 <SidebarBtn url="/myTeachings">MY TEACHINGS</SidebarBtn>
               </div>
               <br />
-              <LogoutBtn onClick={handleLogout}>
+              <LogoutBtn onClick={e => handleLogout()}>
                 {" "}
                 <Icon icon="ri:logout-box-line" color="#000" />
                 LOGOUT
