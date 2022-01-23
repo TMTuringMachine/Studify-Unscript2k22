@@ -33,6 +33,7 @@ function AllTeachers() {
       },
     });
     SetTeachers(res.data.allTeachers);
+    console.log(res.data.allTeachers)
   };
 
   useEffect(() => {

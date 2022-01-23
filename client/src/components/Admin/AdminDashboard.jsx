@@ -53,10 +53,10 @@ function AdminDashboard() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const adminToken = localStorage.getItem("adminToken");
-  useEffect(() => {
-    if (!adminToken) navigate("/adminLogin");
-  }, [adminToken]);
+  // const adminToken = localStorage.getItem("adminToken");
+  // useEffect(() => {
+  //   if (!adminToken) navigate("/adminLogin");
+  // }, [adminToken]);
   return (
     <>
       <Box p={4}>
