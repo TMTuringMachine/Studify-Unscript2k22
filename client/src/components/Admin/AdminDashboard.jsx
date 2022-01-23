@@ -9,7 +9,7 @@ import {
   Stack,
   HStack,
   VStack,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import { CheckIcon } from "@chakra-ui/icons";
@@ -25,30 +25,30 @@ const features = Array.apply(null, Array(8)).map(function (x, i) {
 
 function AdminDashboard() {
   const navigate = useNavigate();
-    const AddCourse = ()=>{
-        navigate("/adminAddCourse");
-    }
-    const UpdateCourse = ()=>{
-        navigate("/adminUpdateCourse");
-    }
-    const RemoveCourse = ()=>{
-        navigate("/adminRemoveCourse");
-    }
-    const UpdateTeacher = ()=>{
-        navigate("/adminUpdateTeacher");
-    }
-    const AllCourses = ()=>{
-        navigate("/adminAllCourses");
-    }
-    const AllTeachers = ()=>{
-        navigate("/adminAllTeachers");
-    }
-    const Requests = ()=>{
-        navigate("/adminRequests");
-    }
-    const removeTechers = ()=>{
-        navigate("/adminRemoveTechers");
-    }
+  const AddCourse = () => {
+    navigate("/adminAddCourse");
+  };
+  const UpdateCourse = () => {
+    navigate("/adminUpdateCourse");
+  };
+  const RemoveCourse = () => {
+    navigate("/adminRemoveCourse");
+  };
+  const UpdateTeacher = () => {
+    navigate("/adminUpdateTeacher");
+  };
+  const AllCourses = () => {
+    navigate("/adminAllCourses");
+  };
+  const AllTeachers = () => {
+    navigate("/adminAllTeachers");
+  };
+  const Requests = () => {
+    navigate("/adminRequests");
+  };
+  const removeTechers = () => {
+    navigate("/adminRemoveTechers");
+  };
   return (
     <>
       <Box p={4}>
@@ -61,18 +61,29 @@ function AdminDashboard() {
 
         <Container maxW={"6xl"} mt={10}>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-
-            <HStack align={"top"} bg={"blue.300"} borderRadius={"xl"} padding={"5%"} onClick={AddCourse} >
+            <HStack
+              align={"top"}
+              bg={"blue.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={AddCourse}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
               <VStack align={"start"}>
                 <Text fontWeight={600}>Add Course</Text>
-                <Text color={"gray.600"}>text</Text>
+                <Text color={"gray.600"}>Done</Text>
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"yellow.300"} borderRadius={"xl"} padding={"5%"} onClick={UpdateCourse}>
+            <HStack
+              align={"top"}
+              bg={"yellow.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={UpdateCourse}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -82,7 +93,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"pink.300"} borderRadius={"xl"} padding={"5%"} onClick={RemoveCourse}>
+            <HStack
+              align={"top"}
+              bg={"pink.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={RemoveCourse}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -92,7 +109,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"orange.300"} borderRadius={"xl"} padding={"5%"} onClick={UpdateTeacher}>
+            <HStack
+              align={"top"}
+              bg={"orange.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={UpdateTeacher}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -102,7 +125,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"gray.300"} borderRadius={"xl"} padding={"5%"} onClick={AllCourses}>
+            <HStack
+              align={"top"}
+              bg={"gray.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={AllCourses}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -112,7 +141,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"purple.300"} borderRadius={"xl"} padding={"5%"} onClick={AllTeachers}>
+            <HStack
+              align={"top"}
+              bg={"purple.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={AllTeachers}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -122,7 +157,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"red.300"} borderRadius={"xl"} padding={"5%"} onClick={Requests}>
+            <HStack
+              align={"top"}
+              bg={"red.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={Requests}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
@@ -132,7 +173,13 @@ function AdminDashboard() {
               </VStack>
             </HStack>
 
-            <HStack align={"top"} bg={"green.300"} borderRadius={"xl"} padding={"5%"} onClick={removeTechers}>
+            <HStack
+              align={"top"}
+              bg={"green.300"}
+              borderRadius={"xl"}
+              padding={"5%"}
+              onClick={removeTechers}
+            >
               <Box color={"green.400"} px={2}>
                 <Icon as={CheckIcon} />
               </Box>
