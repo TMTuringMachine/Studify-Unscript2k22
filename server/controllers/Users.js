@@ -233,4 +233,5 @@ module.exports = {
   razorCallback,
   verifyPayments,
   myTeachings,
+  updateUserProgress
 };

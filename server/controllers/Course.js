@@ -117,7 +117,7 @@ const rateCourse = async (req, res) => {
     currentCourse.rates.push(rating);
     let sumRating;
     let ratesLen;
-    currentCourse.rates.map(r, idx => {
+    currentCourse.rates.map((r, idx) => {
       sumRating += r.rate;
       ratesLen = idx
     })
@@ -126,6 +126,7 @@ const rateCourse = async (req, res) => {
     const updatedCourse = await Course.findByIdAndUpdate(course_id, currentCourse, {new: true});
     res.status(200).json({ok: true, updatedCourse});
   } catch (error) {
+    console.log(error);
     res.status(200).json({ok: false, error});
   }
 }

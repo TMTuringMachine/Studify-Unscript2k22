@@ -37,6 +37,7 @@ const Course = () => {
   const handleRating = async (e, rate) => {
     setRating(rate);
     const res = await API.post("/course/rate", {rate: rating, course_id: course._id});
+    
     console.log(res);
   }
 
