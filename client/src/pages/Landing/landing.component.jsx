@@ -3,6 +3,7 @@ import { Image } from "@chakra-ui/image";
 import LandingPage from "../../assets/LandingPage.png";
 import { Button } from "@chakra-ui/button";
 import hero from "../../assets/hero.png";
+import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <Box fontFamily="'Montserrat', sans-serif" position="relative">
@@ -46,7 +47,7 @@ const Landing = () => {
             backgroundColor="#fb7883"
             _hover="#D3D3D3"
           >
-            Start Learning
+            <Link to="/sign-in">Start Learning</Link>
           </Button>
         </Flex>
         <Flex w="50%" h="100vh" justifyContent="center" alignItems="center">

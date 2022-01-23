@@ -51,7 +51,7 @@ const CreateProfile = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w="30rem"
           borderRadius="5px"
           required
           name="education"
@@ -66,7 +66,7 @@ const CreateProfile = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w="30rem"
           borderRadius="5px"
           name="age"
           required
@@ -82,7 +82,7 @@ const CreateProfile = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w="30rem"
           name="gender"
           borderRadius="5px"
           required
@@ -97,7 +97,7 @@ const CreateProfile = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w="30rem"
           name="DateOfBirth"
           borderRadius="5px"
           required
@@ -112,7 +112,7 @@ const CreateProfile = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w="30rem"
           name="address"
           borderRadius="5px"
           required

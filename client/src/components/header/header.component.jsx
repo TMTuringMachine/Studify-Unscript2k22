@@ -20,8 +20,8 @@ import { HeaderContainer } from "./header.styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../hooks/useAuth";
-
-import {ReactComponent as Logo} from '../../assets/LOGO.svg';
+import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/LOGO.svg";
 
 const SidebarBtn = ({ url, children }) => {
   const { pathname } = useLocation();
@@ -60,9 +60,15 @@ const Header = () => {
   return (
     <HeaderContainer>
       <IconButton onClick={onOpen}>
-        <Icon icon="ic:round-arrow-forward-ios" fontSize={"2em"} color={"#6C63FF"} />
+        <Icon
+          icon="ic:round-arrow-forward-ios"
+          fontSize={"2em"}
+          color={"#6C63FF"}
+        />
       </IconButton>
-      <Logo width="40px" height="40px" style={{marginLeft:'20px'}}/>
+      <Link to="/home">
+        <Logo width="40px" height="40px" style={{ marginLeft: "20px" }} />
+      </Link>
       <Input
         display="inline"
         width="70%"
@@ -77,7 +83,6 @@ const Header = () => {
           height="96vh"
           margin="2vh 0px 2vh 1vw"
           borderRadius="10px"
-       
         >
           <DrawerCloseButton />
 

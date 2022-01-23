@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postCourse } from "../../hooks/useCourse";
 
+import { Textarea } from "@chakra-ui/textarea";
+import { Text } from "@chakra-ui/layout";
+
 const CreateCourseForm = () => {
   const [videos, setVideos] = useState([]);
 
@@ -62,8 +65,27 @@ const CreateCourseForm = () => {
     widget.open();
   };
   return (
-    <Flex mt="1.5rem" justifyContent="center" alignItems="center">
-      <form onSubmit={(e) => onSubmitHandler(e)}>
+    <Flex
+      fontFamily="'Montserrat', sans-serif"
+      mt="0.5rem"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      ml={{ sm: "2rem", md: "0rem" }}
+    >
+      <form
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginLeft: "2rem",
+        }}
+        onSubmit={(e) => onSubmitHandler(e)}
+      >
+        <Text textAlign="center" fontSize="2rem" fontWeight="400">
+          Add Course
+        </Text>
         <label htmlFor="">Title</label>
         <br />
         <Input
@@ -71,7 +93,7 @@ const CreateCourseForm = () => {
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w={{ sm: "10rem", md: "30rem" }}
           borderRadius="5px"
           required
           name="title"
@@ -82,12 +104,13 @@ const CreateCourseForm = () => {
 
         <label htmlFor="">Description</label>
         <br />
-        <Input
+        <Textarea
           mb="1rem"
           p="0.4rem"
           backgroundColor="#e6e6e6"
+          placeholder="Tell Something about your course "
           id="pass"
-          w="20rem"
+          w={{ sm: "10rem", md: "30rem" }}
           name="description"
           borderRadius="5px"
           required
@@ -96,14 +119,14 @@ const CreateCourseForm = () => {
         />
         <br />
 
-        <label htmlFor="">price</label>
+        <label htmlFor="">Price</label>
         <br />
         <Input
           mb="1rem"
           p="0.4rem"
           backgroundColor="#e6e6e6"
           id="pass"
-          w="20rem"
+          w={{ sm: "10rem", md: "30rem" }}
           name="price"
           borderRadius="5px"
           required
@@ -113,14 +136,16 @@ const CreateCourseForm = () => {
         <br />
         <label htmlFor="">Thumbnail</label>
         <br />
-        <Button onClick={imageHandler}>Upload Image</Button>
+        <Button mb="1rem" onClick={imageHandler}>
+          Upload Image
+        </Button>
 
         <Box>
           <label htmlFor="">
             Add multiple video and keep name of the video as the title
           </label>
           <br />
-          <Button onClick={VideoHandler}>Add section</Button>
+          <Button onClick={VideoHandler}>Add Videos</Button>
         </Box>
 
         <Button

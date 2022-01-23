@@ -7,6 +7,8 @@ import { Button } from "@chakra-ui/button";
 import { useDispatch } from "react-redux";
 import { verifyTeacherHook } from "../../hooks/useCourse";
 import CreateCourseForm from "./createCourseForm";
+import { Image } from "@chakra-ui/image";
+import waiting from "../../assets/waiting.png";
 import {
   Modal,
   ModalOverlay,
@@ -84,12 +86,13 @@ const CreateCourse = () => {
             onChange={(e) => onChangeHanler(e)}
           ></Input>
           <Button
-            backgroundColor="#8b85fd"
-            color="white"
+            backgroundColor="#ffffff"
+            color="#6c63ff"
             w="100%"
             onClick={imageHandler}
             m="2rem 0rem"
             type="file"
+            border="2px solid#6c63ff"
           >
             Add Id / Proof of work
           </Button>
@@ -105,9 +108,19 @@ const CreateCourse = () => {
       ) : (
         <Box>
           {!user.isTeacher && user.isPending ? (
-            <Box fontSize="2rem" fontWeight="800" textAlign="center">
-              We have recieved your request, Hang in tight
-            </Box>
+            <Flex
+              fontSize="2rem"
+              fontWeight="400"
+              textAlign="center"
+              alignItems="center"
+              justifyContent="center"
+              flexDir="column"
+              p="2rem"
+              m="2rem"
+            >
+              Sit back and relax while we review your application
+              <Image mt="1rem" w="20rem" h="20rem" src={waiting} />
+            </Flex>
           ) : (
             <Box>
               <Modal isOpen={open} onClose={toggleModal}>
@@ -115,7 +128,7 @@ const CreateCourse = () => {
                 <ModalContent>
                   <ModalHeader>Congratulations!!!! 🎉🎉</ModalHeader>
                   <ModalCloseButton />
-                  <ModalBody>
+                  <ModalBody pb="2rem">
                     You can now Add Courses and spread your learning. Best of
                     luck for your Journey!
                   </ModalBody>

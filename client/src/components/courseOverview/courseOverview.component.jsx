@@ -17,7 +17,9 @@ const course = {
 const CourseOverview = (props) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/course/id", {state: {course: props.course}});
+    navigate(`/course/${props.course._id}`, {
+      state: { course: props.course },
+    });
   };
   console.log(props.course);
   return (
@@ -27,7 +29,9 @@ const CourseOverview = (props) => {
         <div className="course-name">{props.course.title}</div>
         <div className="course-author">{props.course.teacherName}</div>
         <Rating value={5} readOnly />
-        <Text fontWeight="600" fontSize="lg">&#8377; {props.course.price}</Text>
+        <Text fontWeight="600" fontSize="lg">
+          &#8377; {props.course.price}
+        </Text>
         <Button
           width="100%"
           size="sm"

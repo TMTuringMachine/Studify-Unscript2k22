@@ -84,7 +84,7 @@ const SignIn = () => {
               p="0.4rem"
               backgroundColor="#e6e6e6"
               id="pass"
-              type="text"
+              type="password"
               w="20rem"
               borderRadius="5px"
               required
