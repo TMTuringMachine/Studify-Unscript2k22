@@ -18,7 +18,8 @@ import { useDisclosure } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { HeaderContainer } from "./header.styles";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../hooks/useAuth";
 
 const SidebarBtn = ({ url, children }) => {
   const { pathname } = useLocation();
@@ -28,7 +29,6 @@ const SidebarBtn = ({ url, children }) => {
   }, [pathname, url]);
 
   const navigate = useNavigate();
-
   const handleClick = () => {
     navigate(url);
   };
@@ -50,7 +50,11 @@ const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = React.useState("left");
   const user = useSelector((store) => store.auth.user);
+  const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    logout(dispatch);
+  };
   return (
     <HeaderContainer>
       <IconButton onClick={onOpen}>
@@ -70,7 +74,7 @@ const Header = () => {
           margin="2vh 0px 2vh 1vw"
           borderRadius="10px"
         >
-          <DrawerCloseButton  />
+          <DrawerCloseButton />
 
           <DrawerHeader
             borderBottomWidth="1px"
@@ -100,6 +104,7 @@ const Header = () => {
               position="absolute"
               bottom="20px"
               leftIcon={<Icon icon="ri:logout-box-line" color="#000" />}
+              onClick={handleLogout}
             >
               {" "}
               LOGOUT

@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
         default: 0,
       },
       order_id: {
-        type:String,
+        type: String,
         required: true,
       },
       payment_id: {
@@ -71,8 +71,8 @@ const userSchema = new mongoose.Schema({
       },
       payment_signature: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
   ],
   wishList: [

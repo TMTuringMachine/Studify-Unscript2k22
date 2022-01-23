@@ -32,6 +32,10 @@ export default function Router() {
       element: <SignIn />,
     },
     {
+      path: "/landing",
+      element: <Landing />
+    },
+    {
       path: "/login",
       element: <Login />,
     },
@@ -115,7 +119,7 @@ export default function Router() {
           element: <MyWishlist />,
         },
         {
-          path:"/course/:id/learn",
+          path:"/course/learn/:id",
           element:<CourseVideos/>
         },{
           path: "/createCourse",
@@ -200,3 +204,7 @@ const Requests = Loadable(
 const RemoveTeachers = Loadable(
   lazy(() => import("../components/Admin/RemoveTeachers"))
 );
+
+const Landing = Loadable(
+  lazy(() => import("../pages/Landing/landing.component"))
+)

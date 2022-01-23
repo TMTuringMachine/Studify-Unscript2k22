@@ -75,14 +75,16 @@ const login = async (req, res) => {
 
 const jwtVerify = async (req, res) => {
   const token = req.headers.authorization;
-  console.log(`token: ${token}`)
+  console.log(`token: ${token}`);
   if (!token) {
     return res.send(null);
   }
 
   const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   if (decodeToken) {
-    const user = await User.findById(decodeToken._id);
+    const user = await User.findById(decodeToken._id).populate(
+      "myEnrolledCourses.courseID"
+    );
     return res.send({ user });
   }
   res.send(null);
@@ -157,37 +159,44 @@ const razorCallback = (req, res) => {
 
 const verifyPayments = async (req, res) => {
   const razor_secret = process.env.WEBHOOK_SECRET;
-  const {user_id, course_id, payment_id, order_id, razor_signature} = req.body;
+  const { user_id, course_id, payment_id, order_id, razor_signature } =
+    req.body;
   console.log(req.body);
   const razor_ids = `${order_id} | ${payment_id}`;
   try {
-    const generatedSignature = crypto.createHmac('sha256', razor_secret).update(razor_ids.toString()).digest('hex');
+    const generatedSignature = crypto
+      .createHmac("sha256", razor_secret)
+      .update(razor_ids.toString())
+      .digest("hex");
 
-    console.log(`generatedSignature: ${generatedSignature}, razor_signature: ${razor_signature}`);
-    console.log(`Are they the same? ${generatedSignature === razor_signature}`)
-    if(true){
-      console.log("here")
+    console.log(
+      `generatedSignature: ${generatedSignature}, razor_signature: ${razor_signature}`
+    );
+    console.log(`Are they the same? ${generatedSignature === razor_signature}`);
+    if (true) {
+      console.log("here");
       let currentUser = await User.findById(user_id);
       let enrolledCourse = {
         courseID: course_id,
         order_id,
         payment_id,
-        payment_signature: razor_signature
-      }
+        payment_signature: razor_signature,
+      };
       currentUser?.myEnrolledCourses.push(enrolledCourse);
-      const updatedUser = await User.findByIdAndUpdate(user_id, currentUser, {new: true});
+      const updatedUser = await User.findByIdAndUpdate(user_id, currentUser, {
+        new: true,
+      });
       // return res.redirect("/dashboard");
       console.log(JSON.stringify(updatedUser));
-      return res.status(200).json({ok: true, updatedUser: updatedUser});
+      return res.status(200).json({ ok: true, updatedUser: updatedUser });
     }
     // throw new Error("not valid");
   } catch (error) {
     console.log(error);
     return res.redirect("/login");
   }
-    
-  }
-  
+};
+
 module.exports = {
   signup,
   login,
@@ -196,6 +205,5 @@ module.exports = {
   uploadTeacherData,
   buyCourse,
   razorCallback,
-  verifyPayments
-
+  verifyPayments,
 };
