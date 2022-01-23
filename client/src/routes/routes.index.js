@@ -32,6 +32,10 @@ export default function Router() {
       element: <SignIn />,
     },
     {
+      path: "/",
+      element: <Landing />
+    },
+    {
       path: "/login",
       element: <Login />,
     },
@@ -40,7 +44,7 @@ export default function Router() {
       element: <AdminLogin />,
     },
     {
-      path: "/",
+      path: "/kuchBhi/",
       element: <MainLayout />,
       children: [
         {
@@ -136,3 +140,7 @@ const CreateProfile = Loadable(
 const CreateCourse = Loadable(
   lazy(() => import("../components/Teachings/createCourse.component"))
 );
+
+const Landing = Loadable(
+  lazy(() => import("../pages/Landing/landing.component"))
+)
