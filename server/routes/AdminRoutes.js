@@ -15,17 +15,20 @@ const {
   updateTeacherDetails,
 } = require("../controllers/Admin");
 
+// import {isAdmin} from '../middlewares/isAdmin';
+const {isAdmin} = require("../middlewares/isAdmin");
+
 router.post("/signup", signup);
 router.post("/login", login);
-router.get("/allTeachers", getAllTeachers);
-router.get("/allTeacherRequests", getAllRequests);
-router.post("/verifyTeacher", verifyTeacher);
-router.post("/declineRequest", declineRequest);
-router.post("/removeTeacher", removeTeacher);
-router.post("/addCourse", addCourse);
-router.post("/updateCourse", updateCourse);
-router.post("/deleteCourse", deleteCourse);
-router.get("/allCourses", allCourses);
-router.post("/updateTeacher", updateTeacherDetails);
+router.get("/allTeachers", isAdmin,getAllTeachers);
+router.get("/allTeacherRequests",isAdmin, getAllRequests);
+router.post("/verifyTeacher",isAdmin, verifyTeacher);
+router.post("/declineRequest",isAdmin, declineRequest);
+router.post("/removeTeacher",isAdmin, removeTeacher);
+router.post("/addCourse",isAdmin, addCourse);
+router.post("/updateCourse",isAdmin, updateCourse);
+router.post("/deleteCourse",isAdmin, deleteCourse);
+router.get("/allCourses",isAdmin, allCourses);
+router.post("/updateTeacher",isAdmin, updateTeacherDetails);
 
 module.exports = router;
