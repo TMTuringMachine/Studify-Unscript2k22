@@ -66,7 +66,7 @@ export const addDoubt = async (data, courseId) => {
 };
 export const deleteCourse = async (courseId, navigate) => {
   try {
-    const res = await axios.get(`/course/delete/${courseId}`);
+    const res = await axios.post(`/course/delete/${courseId}`);
     console.log(res);
     navigate("/home");
   } catch (e) {
@@ -76,8 +76,8 @@ export const deleteCourse = async (courseId, navigate) => {
 
 export const getAllCourses = async () => {
   const res = await axios.get("/course/getAll");
-  console.log(res,"hereee");
-  if(res.data){
+  console.log(res, "hereee");
+  if (res.data) {
     return res.data.allCourses;
   }
   return [];

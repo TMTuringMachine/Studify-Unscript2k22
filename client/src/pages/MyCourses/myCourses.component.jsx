@@ -13,6 +13,7 @@ const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     setCourses(user.myEnrolledCourses);
+    console.log(user.myEnrolledCourses);
   }, []);
 
   return (
@@ -39,11 +40,11 @@ const MyCourses = () => {
             width="100%"
             margin="20px auto 20px auto"
           >
-            
-            {courses.map((course) => {
+            {courses.map((cour) => {
+              console.log(cour);
               return (
                 <GridItem>
-                  <CourseOverview course={course.courseID} />
+                  <CourseOverview course={cour.courseID} />
                 </GridItem>
               );
             })}

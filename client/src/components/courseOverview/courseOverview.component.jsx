@@ -21,7 +21,7 @@ const CourseOverview = (props) => {
       state: { course: props.course },
     });
   };
-  console.log(props.course);
+  console.log(props);
   return (
     <CourseOverviewContainer>
       <CourseImage url={props.course.thumbnail} />
