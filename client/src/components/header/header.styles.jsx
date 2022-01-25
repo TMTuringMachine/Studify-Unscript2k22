@@ -6,5 +6,6 @@ export const HeaderContainer= styled("div")(()=>({
     backgroundColor:'#6C63FF',
     display:'flex',
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
+    flexWrap:'wrap'
 }))
