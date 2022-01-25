@@ -41,7 +41,7 @@ const Landing = () => {
           <Button
             p="1.5rem"
             borderRadius="0.4rem"
-            fontSize="2rem"
+            fontSize="1.4rem"
             m="2rem 0rem"
             color="white"
             backgroundColor="#fb7883"
@@ -53,8 +53,8 @@ const Landing = () => {
         <Flex w="50%" h="100vh" justifyContent="center" alignItems="center">
           <Image w="30rem" h="30rem" src={hero}></Image>
         </Flex>
-        <Box position="absolute" top="94%">
-          Made with ❤️ by Turing Machine
+        <Box color="white" position="absolute" top="94%">
+          Made with ❤️ by TuringMachine
         </Box>
       </Flex>
     </Box>
