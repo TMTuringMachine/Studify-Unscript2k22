@@ -4,7 +4,7 @@ import React, { useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/react";
+import { Image, Avatar } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { initializeUser } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
@@ -46,54 +46,35 @@ const DashBoard = () => {
         </Box>
       ) : (
         <Flex
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
+          width={["90%","90%","70%","65%","60%"]}
+          padding="20px"
           boxShadow="0px 8px 20px rgba(35, 35, 35, 0.1)"
-          mt="1rem"
-          p="1rem 2rem"
+          margin="30px"
         >
-          <Box textAlign="center" fontSize={{ base: "1rem", md: "2.8rem" }}>
-            Your Profile
+          <Avatar src={user.image} width={["100px",null,"150px","150px","200px"]} height={["100px",null,"150px","150px","200px"]} />
+          <Box marginLeft="20px">
+            <Text fontSize="3xl" fontWeight="600">
+              {user.name}
+            </Text>
+            <Flex alignItems="center">
+              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+                Email:
+              </Text>
+              <Text fontSize="xl">{user.email}</Text>
+            </Flex>
+            <Flex alignItems="center">
+              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+                Education:
+              </Text>
+              <Text fontSize="xl">{user.education}</Text>
+            </Flex>
+            <Flex alignItems="center">
+              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+                Age:
+              </Text>
+              <Text fontSize="xl">{user.age}</Text>
+            </Flex>
           </Box>
-          <Image
-            maxW={{ base: "8rem", md: "10rem" }}
-            w={{ base: "8rem", md: "10rem" }}
-            borderRadius="50%"
-            h={{ base: "8rem", md: "10rem" }}
-            maxH={{ base: "8rem", md: "10rem" }}
-            src={user?.image}
-          ></Image>
-          <Box fontSize={{ md: "2.2rem" }}>Welcome, {user?.name}</Box>
-          <Flex
-            p="1rem"
-            justifyContent="space-between"
-            alignItems="center"
-            w="100%"
-            flexWrap="wrap"
-          >
-            <Flex>
-              <Text fontWeight="bold">Age</Text>: {user?.age}
-            </Flex>
-            <Flex>
-              <Text fontWeight="bold"> Gender</Text>: {user?.gender}
-            </Flex>
-          </Flex>
-          <Flex
-            p="1rem"
-            justifyContent="space-between"
-            w="100%"
-            flexWrap="wrap"
-            flexDirection="column"
-          >
-            <Box mb="0.4rem" mr="0.5rem">
-              {" "}
-              <Text fontWeight="bold"> Education:</Text> {user?.education}
-            </Box>
-            <Box>
-              <Text fontWeight="bold"> Email:</Text> {user?.email}
-            </Box>
-          </Flex>
         </Flex>
       )}
     </Flex>
