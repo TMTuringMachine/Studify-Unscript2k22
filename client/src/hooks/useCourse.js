@@ -73,3 +73,12 @@ export const deleteCourse = async (courseId, navigate) => {
     console.log(e);
   }
 };
+
+export const getAllCourses = async () => {
+  const res = await axios.get("/course/getAll");
+  console.log(res,"hereee");
+  if(res.data){
+    return res.data.allCourses;
+  }
+  return [];
+};
