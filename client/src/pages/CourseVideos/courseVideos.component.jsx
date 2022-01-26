@@ -15,7 +15,7 @@ import {
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCourse, addDoubt } from "../../hooks/useCourse";
+import { getCourse, addDoubt,rateCourse } from "../../hooks/useCourse";
 
 import { Rating } from "@mui/material";
 //https://res.cloudinary.com/dx1ye2bro/video/upload/v1642757644/code-showcase/r4kxpe1vyrtrc4bkhwir.mp4
@@ -79,6 +79,10 @@ const CourseVideos = () => {
     text: "",
   });
   const [someData, setSomeData] = useState(0);
+  const [ratingData, setRatingData] = useState({
+    comment: "",
+    rate: 0,
+  });
   const { user } = useSelector((state) => state.auth);
 
   const handleCheckbox = (e, id) => {
@@ -121,6 +125,20 @@ const CourseVideos = () => {
     addDoubt(doubt, course._id);
     setDoubtData({ text: "" });
     setSomeData(someData + 1);
+  };
+
+  const handleRating = () => {
+    const rData = {
+      ...ratingData,
+      course_id:course._id
+    }
+    console.log(rData);
+    rateCourse(rData);
+    setRatingData({
+      comment:"",
+      rate:0
+    })
+
   };
 
   useEffect(() => {
@@ -221,7 +239,37 @@ const CourseVideos = () => {
                       <Text color="#686868">{course?.description}</Text>
                       <br />
                       <Text>Rate this Course</Text>
-                      <Rating defaultValue={0} precision={0.5} size="large" />
+                      <Input
+                        variant="outline"
+                        placeholder="Enter your comment."
+                        borderColor="#6C63FF"
+                        margin="20px 0px 10px 0px"
+                        value={ratingData.comment}
+                        onChange={(e) => {
+                          setRatingData({
+                            ...ratingData,
+                            comment: e.target.value,
+                          });
+                        }}
+                      />
+                      <Rating
+                        precision={0.5}
+                        size="large"
+                        value={ratingData.rate}
+                        onChange={(e, nv) => {
+                          setRatingData({ ...ratingData, rate: nv });
+                        }}
+                      />
+                      <br />
+                      <Button
+                        size="sm"
+                        backgroundColor="#6F6BFA"
+                        _hover=""
+                        color="#fff"
+                        onClick={handleRating}
+                      >
+                        RATE
+                      </Button>
                     </Box>
                   </TabPanel>
                 </TabPanels>

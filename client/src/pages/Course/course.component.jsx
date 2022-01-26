@@ -106,10 +106,10 @@ const Course = () => {
     getCourse(dispatch, id).then((res) => {
       setCourse(res);
       const enrolledCourses = user.myEnrolledCourses;
-      setIsEnrolled(enrolledCourses.some(a => a.courseID._id === res._id));
 
+      setIsEnrolled(enrolledCourses.some((a) => a?.courseID?._id === res?._id));
     });
-  }, [user,props.pathname]);
+  }, [user, props.pathname]);
   // useEffect(() => {
   //   const id = props.pathname.slice(8);
   //   console.log(id, "here");
