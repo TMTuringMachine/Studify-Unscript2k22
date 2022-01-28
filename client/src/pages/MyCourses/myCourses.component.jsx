@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { MyCoureseContainer } from "./myCourses.styles";
 
 import CourseOverview from "../../components/courseOverview/courseOverview.component";
-import { SimpleGrid, GridItem, Text } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Text, Box } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Button } from "@chakra-ui/button";
+import { ReactComponent as EmptyCart } from "../../assets/svgs/emptyCart.svg";
 
 import { Link } from "react-router-dom";
 const MyCourses = () => {
@@ -18,9 +19,18 @@ const MyCourses = () => {
 
   return (
     <MyCoureseContainer>
-      {courses.length == 0 ? (
-        <Text fontSize="2xl" fontWeight="600" margin="50px 0px 0px 0px">
-          YOU HAVE NOT PURCHASED ANY COURSE FIND SOME HERE <br />
+      {courses.length > 0 ? (
+        <Box display="flex" flexDirection="column" alignItems="center" width="80%" margin="0 auto">
+          <Box
+            width={[200, 300, 350, 360, 400]}
+            height={[200, 300, 350, 360, 400]}
+          >
+            <EmptyCart width="100%" height="100%" />
+          </Box>
+
+          <Text fontSize={["lg", "xl", "xl", "2xl", "2xl"]} fontWeight="600" margin="50px 0px 20px 0px" textAlign="center">
+            YOU HAVE NOT PURCHASED ANY COURSE FIND SOME HERE <br />
+          </Text>
           <Button
             color="white"
             _hover={{ bg: "#a6a0ff" }}
@@ -28,7 +38,7 @@ const MyCourses = () => {
           >
             <Link to="/home">Browse Courses</Link>
           </Button>
-        </Text>
+        </Box>
       ) : (
         <>
           <Text fontSize="2xl" fontWeight="600" margin="50px 0px 0px 0px">
@@ -40,14 +50,17 @@ const MyCourses = () => {
             width="100%"
             margin="20px auto 20px auto"
           >
-            {courses.map((cour) => {
-              console.log(cour);
-              return (
-                <GridItem>
-                  <CourseOverview course={cour.courseID} />
-                </GridItem>
-              );
-            })}
+            {courses
+              .slice()
+              .filter((c) => c.courseID !== null)
+              .map((cour) => {
+                console.log(cour);
+                return (
+                  <GridItem>
+                    <CourseOverview course={cour.courseID} />
+                  </GridItem>
+                );
+              })}
           </SimpleGrid>
         </>
       )}

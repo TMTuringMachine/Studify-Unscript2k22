@@ -46,33 +46,92 @@ const DashBoard = () => {
         </Box>
       ) : (
         <Flex
-          width={["90%","90%","70%","65%","60%"]}
+          width={["90%", "90%", "70%", "65%", "60%"]}
           padding="20px"
           boxShadow="0px 8px 20px rgba(35, 35, 35, 0.1)"
           margin="30px"
         >
-          <Avatar src={user.image} width={["100px",null,"150px","150px","200px"]} height={["100px",null,"150px","150px","200px"]} />
+          <Avatar
+            src={user.image}
+            width={["100px", null, "150px", "150px", "200px"]}
+            height={["100px", null, "150px", "150px", "200px"]}
+          />
           <Box marginLeft="20px">
-            <Text fontSize="3xl" fontWeight="600">
-              {user.name}
-            </Text>
             <Flex alignItems="center">
-              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+              <Text fontSize="3xl" fontWeight="600">
+                {user.name}
+              </Text>
+              {user?.isTeacher ? (
+                <Text
+                  display="inline"
+                  fontSize="md"
+                  fontWeight="600"
+                  marginLeft="20px"
+                  border="2px solid 	#50C878"
+                  color="	#50C878"
+                  padding="1px 15px"
+                  borderRadius="5px"
+                >
+                  TEACHER
+                </Text>
+              ) : null}
+            </Flex>
+            <Flex alignItems="flex-end">
+              <Text
+                fontWeight="500"
+                fontSize="xl"
+                marginRight="10px"
+                marginTop="5px"
+              >
                 Email:
               </Text>
               <Text fontSize="xl">{user.email}</Text>
             </Flex>
             <Flex alignItems="center">
-              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+              <Text
+                fontWeight="500"
+                fontSize="xl"
+                marginRight="10px"
+                marginTop="5px"
+              >
                 Education:
               </Text>
               <Text fontSize="xl">{user.education}</Text>
             </Flex>
             <Flex alignItems="center">
-              <Text fontWeight="500" fontSize="xl" marginRight="10px" marginTop="5px">
+              <Text
+                fontWeight="500"
+                fontSize="xl"
+                marginRight="10px"
+                marginTop="5px"
+              >
                 Age:
               </Text>
               <Text fontSize="xl">{user.age}</Text>
+            </Flex>
+            <Flex>
+              <Flex alignItems="flex-end">
+                <Text
+                  fontWeight="500"
+                  fontSize="xl"
+                  marginRight="10px"
+                  marginTop="5px"
+                >
+                  Purchased:
+                </Text>
+                <Text fontSize="xl">{user.myEnrolledCourses.length}</Text>
+              </Flex>
+              <Flex alignItems="flex-end" marginLeft="20px">
+                <Text
+                  fontWeight="500"
+                  fontSize="xl"
+                  marginRight="10px"
+                  marginTop="5px"
+                >
+                  Created:
+                </Text>
+                <Text fontSize="xl">0</Text>
+              </Flex>
             </Flex>
           </Box>
         </Flex>
