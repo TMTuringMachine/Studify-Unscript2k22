@@ -196,7 +196,6 @@ const Header = () => {
             <SidebarBtn url="/my-courses">MY COURSES</SidebarBtn>
             <SidebarBtn url="/dashboard">MY PROFILE</SidebarBtn>
             <SidebarBtn url="/createCourse">CREATE COURSE</SidebarBtn>
-            <SidebarBtn url="/myTeachings">MY TEACHINGS</SidebarBtn>
             <Button
               position="absolute"
               bottom="20px"

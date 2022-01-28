@@ -91,10 +91,7 @@ export default function Router() {
           path: "/test",
           element: <Test />,
         },
-        {
-          path: "/myTeachings",
-          element: <MyTeachings />,
-        },
+        
         {
           path:"/wishlist",
           element:<MyWishlist/>
@@ -162,9 +159,7 @@ const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const AdminLogin = Loadable(
   lazy(() => import("../pages/login/loginAdmin.component"))
 );
-const MyTeachings = Loadable(
-  lazy(() => import("../components/Teachings/myTeachings.component"))
-);
+
 
 const DashBoard = Loadable(
   lazy(() => import("../components/Dashboard/dashboad.component"))
