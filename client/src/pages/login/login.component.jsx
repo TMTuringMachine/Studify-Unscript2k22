@@ -104,7 +104,10 @@ const SignIn = () => {
             </Button>
           </form>
           <Box p="2rem 0rem" className="already">
-            New to this? <Link to="/sign-in">Sign up</Link>
+            New to this?{" "}
+            <span style={{ color: "#6c63ff", fontWeight: "800" }}>
+              <Link to="/sign-in">Sign Up</Link>
+            </span>
           </Box>
         </Flex>
       </Flex>

@@ -6,7 +6,7 @@ import { Input } from "@chakra-ui/input";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "@chakra-ui/react";
-import { useAlert } from 'react-alert';
+import { useAlert } from "react-alert";
 
 import { SignupHandler } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
@@ -25,9 +25,8 @@ const SignIn = () => {
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const alert = useAlert()
+  const alert = useAlert();
 
-  
   const onSubmitHandler = (e) => {
     e.preventDefault();
     SignupHandler(data, dispatch, navigate);
@@ -93,7 +92,6 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="email"
-            
             w="20rem"
             borderRadius="5px"
             required
@@ -109,7 +107,6 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="pass"
-            
             w="20rem"
             borderRadius="5px"
             required
@@ -125,7 +122,6 @@ const SignIn = () => {
             p="0.4rem"
             backgroundColor="#e6e6e6"
             id="cpass"
-          
             w="20rem"
             borderRadius="5px"
             name="cpassword"
@@ -147,7 +143,10 @@ const SignIn = () => {
           </Button>
         </form>
         <Box p="2rem 0rem" className="already">
-          Already have an account ? <Link to="/login">Login</Link>
+          Already have an account ?{" "}
+          <span style={{ color: "#6c63ff", fontWeight: "800" }}>
+            <Link to="/login">Login</Link>
+          </span>
         </Box>
       </Flex>
     </Flex>
