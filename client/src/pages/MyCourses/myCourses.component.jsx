@@ -19,7 +19,7 @@ const MyCourses = () => {
 
   return (
     <MyCoureseContainer>
-      {courses.length > 0 ? (
+      {courses.length === 0 ? (
         <Box display="flex" flexDirection="column" alignItems="center" width="80%" margin="0 auto">
           <Box
             width={[200, 300, 350, 360, 400]}
