@@ -18,24 +18,31 @@ const Landing = () => {
         zIndex="-1"
         src={LandingPage}
       ></Image>
-      <Flex justifyContent="center" alignItems="center">
+      <Flex
+        flexWrap={{ base: "wrap", md: "nowrap" }}
+        justifyContent={{ base: "center", md: "space-between" }}
+        alignItems="center"
+        p={{ md: "3rem", base: "2rem" }}
+        h={{ md: "100vh", base: "100vh" }}
+      >
         <Flex
           flexDirection="column"
           justifyContent="center"
           alignItems="flex-start"
-          h="100vh"
-          ml="2rem"
-          w="50%"
         >
           <Box
             fontFamily="'Montserrat', sans-serif"
             color="white"
-            fontSize={{ base: "1rem", md: "8.5rem" }}
+            fontSize={{ base: "4rem", md: "8.5rem" }}
             fontWeight="800"
           >
             Studify
           </Box>
-          <Box color="white" fontSize={{ base: "2rem", md: "2rem" }}>
+          <Box
+            color="white"
+            pr="1rem"
+            fontSize={{ base: "1.4rem", md: "2rem" }}
+          >
             Where the worlds best and brightest come to teach
           </Box>
           <Button
@@ -50,10 +57,26 @@ const Landing = () => {
             <Link to="/sign-in">Start Learning</Link>
           </Button>
         </Flex>
-        <Flex w="50%" h="100vh" justifyContent="center" alignItems="center">
-          <Image w="30rem" h="30rem" src={hero}></Image>
+        <Flex
+          // mt={{ base: "-8rem", md: "0rem" }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Image
+            w={{ base: "20rem", md: "30rem" }}
+            h={{ base: "20rem", md: "30rem" }}
+            src={hero}
+          ></Image>
         </Flex>
-        <Box color="white" position="absolute" top="94%">
+        <Box
+          color="white"
+          position="absolute"
+          top={{ md: "94%", base: "94%" }}
+          bottom="0%"
+          textAlign="center"
+          left="50%"
+          transform="translate(-50%,-50%)"
+        >
           Made with ❤️ by TuringMachine
         </Box>
       </Flex>
