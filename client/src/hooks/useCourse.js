@@ -37,8 +37,10 @@ export const getCourse = async (dispatch, id) => {
   console.log(id, "this is id");
 
   const response = await axios.get(`/course/get/${id}`, config);
+  console.log(response,"i am in get course");
   if (response.data) {
     return response.data?.course;
+
   }
   return null;
 };
@@ -82,3 +84,15 @@ export const getAllCourses = async () => {
   }
   return [];
 };
+
+
+export const rateCourse = async (data) =>{
+  const body = JSON.stringify(data);
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+  const res = await axios.post('/course/rate',body,config);
+  console.log(res,"this is rate response");
+}

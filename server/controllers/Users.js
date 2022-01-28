@@ -174,6 +174,7 @@ const razorCallback = (req, res) => {
 };
 
 const verifyPayments = async (req, res) => {
+  console.log("i get hit");
   const razor_secret = process.env.WEBHOOK_SECRET;
   const { user_id, course_id, payment_id, order_id, razor_signature } =
     req.body;
@@ -199,6 +200,7 @@ const verifyPayments = async (req, res) => {
         payment_signature: razor_signature,
       };
       currentUser?.myEnrolledCourses.push(enrolledCourse);
+      await currentUser.save();
       const updatedUser = await User.findByIdAndUpdate(user_id, currentUser, {
         new: true,
       });

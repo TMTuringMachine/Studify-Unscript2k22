@@ -34,11 +34,6 @@ const courseSchema = new mongoose.Schema({
       }
     },
   ],
-  rating: {
-    type: Number,
-    required: false,
-    default: 0
-  },
   rates: [
     {
       user: {
@@ -49,6 +44,9 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         default: 0
       },
+      comment:{
+        type:String
+      }
     }
   ],
   teacherId: {
@@ -80,6 +78,19 @@ const courseSchema = new mongoose.Schema({
     },
   ],
 });
+
+courseSchema.virtual("overallRating").get(function(){
+  let total = 0;
+  this.rates.map(r => {
+    total += r.rate;
+  })
+
+  return Math.round(total/this.rates.length);
+})
+
+courseSchema.set('toObject', { virtuals: true });
+courseSchema.set('toJSON', { virtuals: true });
+
 
 const Course = mongoose.model("COURSE", courseSchema);
 
