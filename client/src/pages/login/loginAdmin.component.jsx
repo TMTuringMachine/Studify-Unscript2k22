@@ -34,7 +34,7 @@ const AdminLogin = () => {
           setIsError(false);
         }, 3000);
       } else {
-        navigate("/");
+        navigate("/adminDashboard");
       }
     });
   };

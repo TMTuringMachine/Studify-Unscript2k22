@@ -53,17 +53,17 @@ function AdminDashboard() {
 
   const { user } = useSelector((state) => state.auth);
 
-  // const adminToken = localStorage.getItem("adminToken");
-  // useEffect(() => {
-  //   if (!adminToken) navigate("/adminLogin");
-  // }, [adminToken]);
+  
+  useEffect(() => {
+    if (!localStorage.getItem("adminToken")) navigate("/adminLogin");
+  }, []);
   return (
     <>
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={"3xl"} textAlign={"center"}>
           <Heading fontSize={"3xl"}>Admin Dashboard</Heading>
           <Text color={"gray.600"} fontSize={"xl"}>
-            Welcome {user.name}!
+            Welcome {user?.name}!
           </Text>
         </Stack>
 
