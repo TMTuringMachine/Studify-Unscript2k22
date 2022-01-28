@@ -16,7 +16,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourse, addDoubt,rateCourse } from "../../hooks/useCourse";
-
+import RatingOverview from "../../components/ratingOverview/ratingOverview.component";
 import { Rating } from "@mui/material";
 //https://res.cloudinary.com/dx1ye2bro/video/upload/v1642757644/code-showcase/r4kxpe1vyrtrc4bkhwir.mp4
 
@@ -68,6 +68,20 @@ const VideoOverview = ({ video, selected, setVideo, handleCheck }) => {
     </Flex>
   );
 };
+
+
+// const RatingOverview = ({rating}) => {
+//   return(
+//     <Flex width="100%"  margin="10px 0px 15px 0px" padding="5px" borderBottom="1px solid #c2c2c2">
+//       <Avatar size="md" marginRight="5px" src={rating.user.image} />
+//      <Box>
+//      <Text fontWeight="600">{rating?.user?.name}</Text>
+//      <Rating value={rating?.rate}  readOnly/>
+//      <Text>{rating?.comment}</Text>
+//      </Box>
+//     </Flex>
+//   )
+// }
 
 const CourseVideos = () => {
   const [course, setCourse] = useState(null);
@@ -138,7 +152,8 @@ const CourseVideos = () => {
       comment:"",
       rate:0
     })
-
+    setSomeData(someData + 1);
+ 
   };
 
   useEffect(() => {
@@ -270,7 +285,12 @@ const CourseVideos = () => {
                       >
                         RATE
                       </Button>
-                    </Box>
+                      <Box>
+                        {
+                          course?.rates.slice().reverse().map(rate => <RatingOverview rating={rate}/>)
+                        }
+                      </Box>
+                  </Box>
                   </TabPanel>
                 </TabPanels>
               </Tabs>

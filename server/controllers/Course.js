@@ -69,7 +69,7 @@ const getCourse = async (req, res) => {
   // const { courseId } = req.body;
   const { courseId } = req.params;
   try {
-    const course = await Course.findById(courseId).populate("doubts.userId");
+    const course = await Course.findById(courseId).populate("doubts.userId").populate("rates.user");
     return res.status(200).json({ ok: true, course });
   } catch (error) {
     return res.status(500).json({ ok: false, error });

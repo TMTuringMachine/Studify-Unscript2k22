@@ -3,7 +3,8 @@ import { Button, styled } from "@mui/material";
 export const IconButtonContainer = styled(Button)(({ theme }) => ({
   // width:'30px',
   height: "50px",
-  maxWidth: "20px",
+  // maxWidth: "20px",
+  minWidth:'35px',
   padding: "0px !important",
   // backgroundColor:"#6C63FF",
   backgroundColor: "#fff",

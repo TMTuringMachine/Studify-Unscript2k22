@@ -10,6 +10,7 @@ import { initializeUser } from "../../hooks/useAuth";
 
 import { CourseContainer, CourseImage } from "./course.styles";
 import { deleteCourse, getCourse } from "../../hooks/useCourse";
+import RatingOverview from '../../components/ratingOverview/ratingOverview.component';
 
 let course = {
   thumbnail:
@@ -115,6 +116,11 @@ const Course = () => {
   //   console.log(id, "here");
   //   getCourse(dispatch, id).then((res) => setCourse(res));
   // }, [props.pathname]);
+
+  useEffect(()=>{
+    console.log(course,"this is the state course");
+  },[course])
+
   const EnrololedButton = () => {
     return (
       <Button
@@ -198,13 +204,12 @@ const Course = () => {
                     by {course?.teacherName}
                   </Text>
                 </div>
-                <Rating
-                  defaultValue={4}
-                  precision={0.5}
-                  size="large"
-                  readOnly
-                  // onChange={handleRating}
-                />
+                {
+                  course !== null?
+                  <Rating size="large" value={course.overallRating} readOnly/>
+                  :
+                  <Rating size="large" value={0} readOnly/>
+                }
                 <Text fontSize={["3xl", "3xl", "4xl", "5xl", "5xl"]}>
                   {" "}
                   &#8377; {course?.price}
@@ -223,25 +228,6 @@ const Course = () => {
           </Box>
           <Flex width="95%" margin={["20px auto 0px auto", "0 auto"]}>
             {isEnrolled ? <EnrololedButton /> : <NotEnrolledButton />}
-            {/* <Button
-              width="48%"
-              backgroundColor="#6C63FF"
-              _hover=""
-              color="#fff"
-              onClick={handlePayment}
-            >
-              BUY NOW
-            </Button>
-            <Spacer />
-            <Button
-              width="48%"
-              variant="outline"
-              color="#6C63FF"
-              borderColor="#6C63FF"
-              borderWidth="2px"
-            >
-              ADD TO WISHLIST
-            </Button> */}
           </Flex>
         </Box>
       </SimpleGrid>
@@ -249,6 +235,12 @@ const Course = () => {
         <Text fontSize="xl" color="#6d6d6d">
           {course?.description}
         </Text>
+      </Box>
+      <Box width="95%" margin="30px auto"  marginTop="30px">
+        <Text fontSize={["lg", "xl", "xl", "2xl", "2xl"]} fontWeight="600">Course reviews:</Text>
+        {
+          course?.rates.slice().reverse().map(rating => <RatingOverview rating={rating}/>)
+        }
       </Box>
     </CourseContainer>
   );
