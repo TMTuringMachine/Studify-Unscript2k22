@@ -24,13 +24,13 @@ const CourseOverview = (props) => {
   console.log(props);
   return (
     <CourseOverviewContainer>
-      <CourseImage url={props.course.thumbnail} />
+      <CourseImage url={props?.course?.thumbnail} />
       <CourseData>
-        <div className="course-name">{props.course.title}</div>
-        <div className="course-author">{props.course.teacherName}</div>
+        <div className="course-name">{props.course?.title}</div>
+        <div className="course-author">{props.course?.teacherName}</div>
         <Rating value={5} readOnly />
         <Text fontWeight="600" fontSize="lg">
-          &#8377; {props.course.price}
+          &#8377; {props?.course?.price}
         </Text>
         <Button
           width="100%"

@@ -86,6 +86,7 @@ const getAllTeachers = async (req, res) => {
 };
 
 const getAllRequests = async (req, res) => {
+      console.log("What's happening? ");
   try {
     let reqArr = [];
     const TeacherRequests = await User.find({ isTeacher: false });

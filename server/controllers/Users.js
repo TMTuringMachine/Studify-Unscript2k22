@@ -175,7 +175,7 @@ const razorCallback = (req, res) => {
 
 const verifyPayments = async (req, res) => {
   console.log("i get hit");
-  const razor_secret = process.env.WEBHOOK_SECRET;
+  const razor_secret = process.env.RAZORPAY_KEY_SECRET;
   const { user_id, course_id, payment_id, order_id, razor_signature } =
     req.body;
   console.log(req.body);

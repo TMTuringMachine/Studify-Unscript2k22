@@ -54,7 +54,7 @@ const Course = () => {
 
     console.log(order);
     var options = {
-      key: "rzp_test_7o3KFikLV8ENjP", // Enter the Key ID generated from the Dashboard
+      key: "rzp_test_O2foxYnFb747vE", // Enter the Key ID generated from the Dashboard
       amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: order.currency,
       name: "Studify",
@@ -66,6 +66,7 @@ const Course = () => {
         // alert(res.razorpay_payment_id);
         // alert(res.razorpay_order_id);
         // alert(res.razorpay_signature) ;
+        console.log("razorpay callback: ", res);
         const payload = {
           payment_id: res.razorpay_payment_id,
           order_id: res.razorpay_order_id,
