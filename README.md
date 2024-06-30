@@ -2,7 +2,7 @@
 
 ## Demo Vide: [Demo](https://drive.google.com/drive/folders/1YuKHlwUp-_rjsti8DpjGYwjBomfXxt5X?usp=sharing)
 
-## Check the deployed project here: [Studify](http://studify4.herokuapp.com/landing)
+## Check the deployed project here: [Studify](https://studify-frontend.onrender.com)
 #### Team name: TuringMachine
 #### Winner in a nation wide hackathon organized by Fr. Conceicao Rodrigues College of Engineering in the Web Domain where 25+ teams participated in the same domain. 
 ### Check our Judging round and demo of the project on YouTube [here](https://youtu.be/rqkCwkT_KhE?t=3958)
